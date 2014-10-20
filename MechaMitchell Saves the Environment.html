@@ -1,3 +1,6 @@
+<!--
+Don't steal our code.
+-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,7 +108,7 @@
 				//console.log("Really?");
 			}
 			else if ( newState === GAMEOVER ) {
-				waitTime = 2000;
+				waitTime = 3000;
 				lastTime = performance.now();
 			timerID = setInterval(function() { updateGameOver(); drawGameOver(ctx); }, 1000/60);
 			}	
@@ -133,6 +136,7 @@
 			{
 			ctx.drawImage(playlogo, playButton.x, playButton.y);
 			}
+			
 			//console.log("This is draw menu.");
 		}
 		
@@ -146,10 +150,9 @@
 		}
 				
 		function drawGameOver(ctx) {
-			ctx.fillText("GAME OVER!", 200, 100);
 			if (ready3 === true)
 			{
-				ctx.drawImage(gameoverlogo, 200, 100);
+				ctx.drawImage(gameoverlogo, 300, 270);
 			}
 		}
 		
@@ -233,7 +236,7 @@
 					ninety = 89; 
 				ninety++;
 				enetrees.push(enetree);
-				spawntime = 4000;
+				spawntime = 3000;
 			}
 
 			
@@ -358,8 +361,3 @@
 	</script>
 </body>
 </html>
-
-
-
-
-
