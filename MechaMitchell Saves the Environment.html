@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>MechaMitchell Saves the Environment</title>
+	<style type='text/css'>canvas { border: thin solid black; }</style>
+	<script type = 'text/javascript' src='howler.min.js'></script>
+</head>
+<p>
+<a href="/" target="_self">Back to home page</a>
+</p>
+<body>
+	<h1>MechaMitchell Saves the Environment</h1>
+	<canvas id='canvas' width='800' height='630'></canvas>
+	<script type='text/javascript'>
+		"use strict";
+		var ctx;
+		var player = { x: 20, y:270, w: 110, h: 110, dy:120};
+		var enetrees = [];
+		var key = {left: false, right: false, up: false, down: false};
+		
+		var ninety = 90;
+		
+		var firing = false;
+		var bullets = [];
+		var bspeed = 6;
+		
+		var curStamp = 0;
+		var lastStamp = 0;
+		var elapsed = 0;
+		var fireTime = 0;
+		var spawntime = 0;
+		
+		var gun = {x: 80, y: 315, w: 110, h: 110};
+
+		var MENU = 0, PLAY = 1, GAMEOVER = 2;
+		var state = MENU;
+		var timerID = -1;
+		var mouse = { x: 0, y: 20, clicked: false };
+		var playButton = {};
+		var waitTime = 0;
+		var lastTime = 0;
+		var enter = false;
+		
+		var life = 5;
+		var kills = 0;
+		
+		var MechaMitchell = new Image();
+		var ready = false;
+		var playlogo = new Image();
+		
+		
+		function contains( r, m ) {
+			return ! (r.x>m.x || r.y>m.y || m.x>r.x+r.w || m.y>r.y+r.h );
+		}
+		
+		function getClick(e) {
+			var evt = e || window.event;
+			mouse.x = evt.pageX - ctx.canvas.offsetLeft;
+			mouse.y = evt.pageY - ctx.canvas.offsetTop;
+			mouse.clicked = true;
+		}
+		
+		function init()
+		{
+			ctx.font = "24pt Arial, sans-serif";
+			ctx.textBaseline = "top";
+			playButton.x = ctx.canvas.width/2 - 100;
+			playButton.y = ctx.canvas.height/2 - 50;
+			playButton.w = 200;
+			playButton.h = 100;
+			MechaMitchell.onload = function() {
+				ready = true;
+			}
+			playlogo.onload = function() {
+				ready = true;
+			}
+			MechaMitchell.src = "http://patoyoboii.ddns.net/MechaMitchell.png";
+			playlogo.src = "Metal Play.png"
+		}
+		
+		function reset()
+		{
+			life = 5;
+			waitTime = 0;
+			mouse.clicked = false;
+		}
+		
+		function changeState( newState ) {
+			//console.log("Changing state to " + newState);
+			if ( timerID != -1 )
+				clearInterval(timerID);
+			if ( newState === MENU )
+				timerID = setInterval(function() { updateMenu(); drawMenu(ctx); }, 1000/60);
+			else if ( newState === PLAY ) {
+				reset();
+				timerID = setInterval(function() { updatePlay(); drawPlay(ctx); }, 1000/60);
+				//console.log("Really?");
+			}
+			else if ( newState === GAMEOVER ) {
+				waitTime = 2000;
+				lastTime = performance.now();
+			timerID = setInterval(function() { updateGameOver(); drawGameOver(ctx); }, 1000/60);
+			}	
+			state = newState;
+		}
+		
+		function updateMenu() {
+		if ( mouse.clicked && contains(playButton, mouse) === true ) {
+				//console.log("changing state to play b/c mouse");
+				changeState(PLAY);
+			}
+			else if (enter === true) {
+				//console.log("changing state to play b/c enter");
+				changeState(PLAY);
+			}	
+			mouse.clicked = false;
+			enter = false;
+		}
+		
+		function drawMenu(ctx) {
+			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+			ctx.strokeRect(playButton.x, playButton.y, playButton.w, playButton.h);
+			ctx.fillText("[PLAY]", playButton.x+55, playButton.y+30);
+			if ( ready === true )
+			{
+			ctx.drawImage(playlogo, playButton.x, playButton.y);
+			}
+			//console.log("This is draw menu.");
+		}
+		
+		function updateGameOver() {
+			var curTime = performance.now();
+			var elapsed = curTime - lastTime;
+			waitTime -= elapsed;
+			lastTime = curTime;
+			if ( waitTime <= 0 )
+			changeState(MENU);
+		}
+				
+		function drawGameOver(ctx) {
+			ctx.fillText("GAME OVER!", 200, 100);
+		}
+		
+		function updatePlay() {
+			var orig = { x: player.x, y: player.y};
+			
+			if (key.up){
+				player.y -= player.dy;
+			}  
+			if (key.down){
+				player.y += player.dy;
+			}
+				
+			if ( player.y - 10 < 0 )
+				player.y = 30;
+			else if (player.y + player.h > ctx.canvas.height)
+				player.y = 620 - player.h;
+			if ( gun.y - 75 < 0)
+				gun.y = 75;
+			else if (gun.y + gun.h > ctx.canvas.height)
+				gun.y = 665 - gun.h;
+
+				
+			curStamp = Date.now();
+			elapsed = curStamp - lastStamp;
+			fireTime -= elapsed;
+			spawntime -= elapsed
+			if ( firing && fireTime <= 0 )
+			{
+				var bullet = {
+					x: gun.x,
+					y: gun.y + 1,
+				};
+				bullets.push(bullet);
+				fireTime = 350;
+			}
+			
+			var r = 1+Math.floor(Math.random()*5);
+			for ( var i=0; i<bullets.length; i++ ) {
+				if (!shot(i)) {
+					bullets[i].x += bspeed;
+				}
+				else if ( shot(i)) {
+					bullets.splice(i,1);	
+				}
+				if (bullets[i].x > 790) {
+					bullets.splice(i,1);
+				}
+			}
+			for ( var i=0; i<enetrees.length; i++ ) {
+				if ( enetrees[i].lives >= 0){
+					enetrees[i].x -= enetrees[i].dx;
+				}
+				else if ( enetrees[i].lives <= -1){
+					enetrees.splice(i,1);
+					kills++;
+				}
+				if ( enetrees[i].x <= 170){
+					enetrees.splice(i,1);
+					life -= 1;
+				}
+				
+			}
+			
+			if ( spawntime <= 0 )
+			{
+				var enetree;
+				
+				
+				if ( r === 1)
+						enetree = { x: 900, y: 30, w: 110, h: 110, dx: 1, lives: 2, n: ninety };
+				else if ( r === 2)
+						enetree = {x: 900, y: 150, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
+				else if ( r === 3)
+						enetree = {x: 900, y: 270, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
+				else if ( r === 4)
+						enetree = {x: 900, y: 390, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
+				else if ( r === 5)
+						enetree = {x: 900, y: 510, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
+				if (ninety >= 99)
+					ninety = 89; 
+				ninety++;
+				enetrees.push(enetree);
+				spawntime = 4000;
+			}
+
+			
+			lastStamp = curStamp;
+			
+			if ( life === 0 ) {
+				changeState(GAMEOVER);
+			}
+
+		}
+		
+		function shot(n){
+			for ( var i=0; i<enetrees.length; i++ ) {
+				if ( ((bullets[n].x+4) >= enetrees[i].x) && (bullets[n].y >= enetrees[i].y && bullets[n].y <= enetrees[i].y + 110) ) {
+						enetrees[i].lives -= 1;
+						return true;
+				}
+					
+			}
+			return false;
+		}
+
+		function drawPlay(ctx) {
+			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+			ctx.fillStyle = "#000000";
+			ctx.fillRect(0,20,10,600);
+			ctx.fillRect(0,20,800,10);
+			ctx.fillRect(790,20,10,600);
+			ctx.fillRect(0,620,800,10);
+			ctx.fillRect(160,20,10,600);
+			ctx.fillRect(0,140,800,10);
+			ctx.fillRect(0,260,800,10);
+			ctx.fillRect(0,380,800,10);
+			ctx.fillRect(0,500,800,10);
+			//console.log("This is draw play.");
+			
+			if (ready)
+			{
+				ctx.drawImage(MechaMitchell, player.x, player.y);
+			}
+			
+			ctx.fillStyle = "#FF0000";
+			for ( var i=0; i<bullets.length; ++i ) {
+				ctx.fillRect(bullets[i].x, bullets[i].y, 4, 4);
+			}
+			
+			ctx.fillStyle = "#9F703A";
+			for ( var i=0; i<enetrees.length; ++i ) {
+			for ( var i=0; i<enetrees.length; ++i ) {
+				ctx.fillStyle = "#9F703A";
+				ctx.fillRect(enetrees[i].x, enetrees[i].y, enetrees[i].w, enetrees[i].h ); 
+				ctx.fillStyle = "#0000FF";
+				ctx.fillText(enetrees[i].n, enetrees[i].x+20, enetrees[i].y+50);
+				
+				
+			}	ctx.fillRect(enetrees[i].x, enetrees[i].y, enetrees[i].w, enetrees[i].h );   
+			}
+			ctx.fillStyle = "#0000FF";
+			ctx.font = "16pt Arial, sans-serif";
+			ctx.textBaseline = "top";
+			
+			ctx.fillText("Lives: "+life, 50, 0);
+			ctx.fillText("Kills: "+kills, 300, 0);
+
+
+		}
+		
+		var KEY_UP = 38, KEY_DOWN=40, KEY_SPACE=32, KEY_ENTER=13;
+		
+		function handleKeyDown(evt) {
+			if ( evt.keyCode == KEY_SPACE ) {
+				firing = true;
+				
+				if( 32 == evt.keyCode )
+					evt.preventDefault();
+				
+			}
+		}
+
+		function handleKeyUp(evt) {
+			if ( evt.keyCode == KEY_SPACE ) {
+				firing = false;
+				
+				if( 32 == evt.keyCode )
+					evt.preventDefault();
+			}
+		}
+
+		
+		function handleKeypress(evt) {
+			if ( evt.keyCode == KEY_UP){
+				player.y -= player.dy;
+				gun.y = player.y+45;
+			}
+			if ( evt.keyCode == KEY_DOWN){
+				player.y += player.dy
+				gun.y = player.y+45;
+			}
+			if ( evt.keyCode == KEY_ENTER){
+				enter = true;
+			}
+			
+			
+			if( 38 <= evt.keyCode && evt.keyCode <= 40)
+				evt.preventDefault();
+			if( 13 == evt.keyCode )
+				evt.preventDefault();
+		}
+		
+		function main() {
+			ctx = document.getElementById('canvas').getContext("2d");
+			document.addEventListener('keydown', handleKeyDown);
+			document.addEventListener('keyup', handleKeyUp);
+			document.addEventListener('keydown', handleKeypress);
+			document.addEventListener('click', getClick);
+			document.addEventListener('drag', getClick);
+			init();
+			changeState(MENU);
+		}
+		
+		main();
+	</script>
+</body>
+</html>
+
+
+
