@@ -54,8 +54,7 @@ Don't steal our code.
 		var gameoverlogo = new Image();
 		var ready2 = false;
 		var ready3 = false;
-		
-		
+				
 		function contains( r, m ) {
 			return ! (r.x>m.x || r.y>m.y || m.x>r.x+r.w || m.y>r.y+r.h );
 		}
@@ -209,6 +208,9 @@ Don't steal our code.
 				else if ( enetrees[i].lives <= -1){
 					enetrees.splice(i,1);
 					kills++;
+					var sound = new Howl({
+					urls: ['self checkout.wav']
+					}).play();
 				}
 				if ( enetrees[i].x <= 170){
 					enetrees.splice(i,1);
@@ -229,9 +231,9 @@ Don't steal our code.
 				else if ( r === 3)
 						enetree = {x: 900, y: 270, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
 				else if ( r === 4)
-						enetree = {x: 900, y: 390, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
+						enetree = {x: 900, y: 390, w: 110, h: 110, dx: 2, lives: 1, n: ninety};
 				else if ( r === 5)
-						enetree = {x: 900, y: 510, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
+						enetree = {x: 900, y: 510, w: 110, h: 110, dx: 2, lives: 1, n: ninety};
 				if (ninety >= 99)
 					ninety = 89; 
 				ninety++;
@@ -244,6 +246,9 @@ Don't steal our code.
 			
 			if ( life === 0 ) {
 				changeState(GAMEOVER);
+				var sound = new Howl({
+				urls: ['falling ship.wav']
+				}).play();
 			}
 
 		}
