@@ -140,11 +140,7 @@ Don't steal our code.
 		function drawMenu(ctx) {
 			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 			//ctx.strokeRect(playButton.x, playButton.y, playButton.w, playButton.h);
-<<<<<<< HEAD
-			ctx.fillText("[PLAY]", playButton.x+55, playButton.y+30);
-=======
-			//ctx.fillText("[PLAY]", playButton.x+55, playButton.y+30);
->>>>>>> origin/master
+
 			if ( ready2 === true )
 			{
 			ctx.drawImage(playlogo, playButton.x, playButton.y);
@@ -312,14 +308,12 @@ Don't steal our code.
 			
 			ctx.fillStyle = "#9F703A";
 			for ( var i=0; i<enetrees.length; ++i ) {
-			for ( var i=0; i<enetrees.length; ++i ) {
 				ctx.fillStyle = "#9F703A";
 				ctx.fillRect(enetrees[i].x, enetrees[i].y, enetrees[i].w, enetrees[i].h ); 
 				ctx.fillStyle = "#0000FF";
 				ctx.fillText(enetrees[i].n, enetrees[i].x+20, enetrees[i].y+50);
 				
-				
-			}	ctx.fillRect(enetrees[i].x, enetrees[i].y, enetrees[i].w, enetrees[i].h );   
+				  
 			}
 			
 
