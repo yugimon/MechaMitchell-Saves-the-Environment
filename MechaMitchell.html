@@ -198,6 +198,9 @@ Don't steal our code.
 				};
 				bullets.push(bullet);
 				fireTime = 350;
+				var sound = new Howl({
+				urls: ['High pitched jump.mp3']
+				}).play();
 			}
 			
 			var r = 1+Math.floor(Math.random()*5);
@@ -220,7 +223,7 @@ Don't steal our code.
 					enetrees.splice(i,1);
 					kills++;
 					var sound = new Howl({
-					urls: ['self checkout.wav']
+					urls: ['Self Checkout.mp3']
 					}).play();
 				}
 				if ( enetrees[i].x <= 170){
@@ -258,7 +261,7 @@ Don't steal our code.
 			if ( life === 0 ) {
 				changeState(GAMEOVER);
 				/*var sound = new Howl({
-				urls: ['falling ship.wav']
+				urls: ['falling ship.mp3']
 				}).play();*/
 				var sound = new Howl({
 				urls: ['nooo.mp3']
