@@ -91,23 +91,33 @@ Don't steal our code.
 		
 		function reset()
 		{
+			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 			life = 5;
+			kills = 0;
+			player = { x: 20, y:270, w: 110, h: 110, dy:120};
+			ninety = 90
+			enetrees = [];
+			bullets = [];
 			waitTime = 0;
 			mouse.clicked = false;
+			
 		}
 		
 		function changeState( newState ) {
 			//console.log("Changing state to " + newState);
 			if ( timerID != -1 )
 				clearInterval(timerID);
-			if ( newState === MENU )
+			if ( newState === MENU ){
+				reset();
 				timerID = setInterval(function() { updateMenu(); drawMenu(ctx); }, 1000/60);
+			}
 			else if ( newState === PLAY ) {
 				reset();
 				timerID = setInterval(function() { updatePlay(); drawPlay(ctx); }, 1000/60);
 				//console.log("Really?");
 			}
 			else if ( newState === GAMEOVER ) {
+				reset();
 				waitTime = 3000;
 				lastTime = performance.now();
 			timerID = setInterval(function() { updateGameOver(); drawGameOver(ctx); }, 1000/60);
@@ -130,7 +140,7 @@ Don't steal our code.
 		
 		function drawMenu(ctx) {
 			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-			ctx.strokeRect(playButton.x, playButton.y, playButton.w, playButton.h);
+			//ctx.strokeRect(playButton.x, playButton.y, playButton.w, playButton.h);
 			ctx.fillText("[PLAY]", playButton.x+55, playButton.y+30);
 			if ( ready2 === true )
 			{
@@ -141,6 +151,7 @@ Don't steal our code.
 		}
 		
 		function updateGameOver() {
+			
 			var curTime = performance.now();
 			var elapsed = curTime - lastTime;
 			waitTime -= elapsed;
@@ -223,7 +234,7 @@ Don't steal our code.
 				
 				
 				if ( r === 1)
-						enetree = { x: 900, y: 30, w: 110, h: 110, dx: 1, lives: 2, n: ninety };
+						enetree = { x: 900, y: 30, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
 				else if ( r === 2)
 						enetree = {x: 900, y: 150, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
 				else if ( r === 3)
@@ -278,6 +289,13 @@ Don't steal our code.
 				ctx.drawImage(MechaMitchell, player.x, player.y);
 			}
 			
+			ctx.fillStyle = "#0000FF";
+			ctx.font = "16pt Arial, sans-serif";
+			ctx.textBaseline = "top";
+			
+			ctx.fillText("Lives: "+life, 50, 0);
+			ctx.fillText("Kills: "+kills, 300, 0);
+			
 			ctx.fillStyle = "#FF0000";
 			for ( var i=0; i<bullets.length; ++i ) {
 				ctx.fillRect(bullets[i].x, bullets[i].y, 4, 4);
@@ -294,12 +312,7 @@ Don't steal our code.
 				
 			}	ctx.fillRect(enetrees[i].x, enetrees[i].y, enetrees[i].w, enetrees[i].h );   
 			}
-			ctx.fillStyle = "#0000FF";
-			ctx.font = "16pt Arial, sans-serif";
-			ctx.textBaseline = "top";
 			
-			ctx.fillText("Lives: "+life, 50, 0);
-			ctx.fillText("Kills: "+kills, 300, 0);
 
 
 		}
