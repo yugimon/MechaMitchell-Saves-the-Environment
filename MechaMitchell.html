@@ -51,11 +51,13 @@ Don't steal our code.
 		var MechaMitchell = new Image();
 		var ready = false;
 		var playlogo = new Image();
-		var gameoverlogo = new Image();
-		var tree1 = new Image();
 		var ready2 = false;
+		var gameoverlogo = new Image();
 		var ready3 = false;
+		var tree1 = new Image();
 		var ready4 = false;
+		var tree2 = new Image();
+		var ready5 = false;
 				
 		function contains( r, m ) {
 			return ! (r.x>m.x || r.y>m.y || m.x>r.x+r.w || m.y>r.y+r.h );
@@ -85,10 +87,17 @@ Don't steal our code.
 			gameoverlogo.onload = function() {
 				ready3 = true;
 			}
+			tree1.onload = function() {
+				ready4= true;
+			}
+			tree2.onload = function() {
+				ready5= true;
+			}
 			MechaMitchell.src = "http://patoyoboii.ddns.net/MechaMitchell.png";
 			playlogo.src = "http://patoyoboii.ddns.net/Metal-Play.png"
 			gameoverlogo.src = "http://patoyoboii.ddns.net/Game-Over.png"
 			tree1.src = "http://patoyoboii.ddns.net/tree-1.png"
+			tree2.src = "http://patoyoboii.ddns.net/tree-2.png"
 		}
 		
 		function reset()
@@ -106,7 +115,6 @@ Don't steal our code.
 		}
 		
 		function changeState( newState ) {
-			//console.log("Changing state to " + newState);
 			if ( timerID != -1 )
 				clearInterval(timerID);
 			if ( newState === MENU ){
@@ -116,7 +124,6 @@ Don't steal our code.
 			else if ( newState === PLAY ) {
 				reset();
 				timerID = setInterval(function() { updatePlay(); drawPlay(ctx); }, 1000/60);
-				//console.log("Really?");
 			}
 			else if ( newState === GAMEOVER ) {
 				reset();
@@ -129,11 +136,9 @@ Don't steal our code.
 		
 		function updateMenu() {
 		if ( mouse.clicked && contains(playButton, mouse) === true ) {
-				//console.log("changing state to play b/c mouse");
 				changeState(PLAY);
 			}
 			else if (enter === true) {
-				//console.log("changing state to play b/c enter");
 				changeState(PLAY);
 			}	
 			mouse.clicked = false;
@@ -148,8 +153,10 @@ Don't steal our code.
 			{
 			ctx.drawImage(playlogo, playButton.x, playButton.y);
 			}
-			
-			//console.log("This is draw menu.");
+			/*if (ready4 === true)
+			{
+				ctx.drawImage(tree1, 400, 100);
+			}*/
 		}
 		
 		function updateGameOver() {
@@ -284,9 +291,6 @@ Don't steal our code.
 			
 			if ( life === 0 ) {
 				changeState(GAMEOVER);
-				/*var sound = new Howl({
-				urls: ['falling ship.mp3']
-				}).play();*/
 				var sound = new Howl({
 				urls: ['http://patoyoboii.ddns.net/nooo.mp3']
 				}).play();
@@ -320,7 +324,6 @@ Don't steal our code.
 			ctx.fillRect(0,260,800,10);
 			ctx.fillRect(0,380,800,10);
 			ctx.fillRect(0,500,800,10);
-			//console.log("This is draw play.");
 			
 			if (ready === true)
 			{
@@ -342,7 +345,15 @@ Don't steal our code.
 			ctx.fillStyle = "#9F703A";
 			for ( var i=0; i<enetrees.length; ++i ) {
 				ctx.fillStyle = "#9F703A";
-				ctx.fillRect(enetrees[i].x, enetrees[i].y, enetrees[i].w, enetrees[i].h );
+				//ctx.fillRect(enetrees[i].x, enetrees[i].y, enetrees[i].w, enetrees[i].h );
+				if (ready4 === true && enetrees[i].n <= 100)
+				{
+					ctx.drawImage(tree1, enetrees[i].x, enetrees[i].y);
+				}
+				else if (ready5 === true && enetrees[i].n > 100)
+				{
+					ctx.drawImage(tree2, enetrees[i].x, enetrees[i].y);
+				}
 				ctx.fillStyle = "#0000FF";
 				ctx.fillText(enetrees[i].n, enetrees[i].x+20, enetrees[i].y+50);  
 			}
