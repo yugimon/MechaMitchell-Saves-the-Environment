@@ -1,4 +1,4 @@
-<!--
+ <!--
 Don't steal our code.
 -->
 <!DOCTYPE html>
@@ -52,8 +52,10 @@ Don't steal our code.
 		var ready = false;
 		var playlogo = new Image();
 		var gameoverlogo = new Image();
+		var tree1 = new Image();
 		var ready2 = false;
 		var ready3 = false;
+		var ready4 = false;
 				
 		function contains( r, m ) {
 			return ! (r.x>m.x || r.y>m.y || m.x>r.x+r.w || m.y>r.y+r.h );
@@ -83,9 +85,13 @@ Don't steal our code.
 			gameoverlogo.onload = function() {
 				ready3 = true;
 			}
+			gameoverlogo.onload = function() {
+				ready4= true;
+			}
 			MechaMitchell.src = "http://patoyoboii.ddns.net/MechaMitchell.png";
 			playlogo.src = "http://patoyoboii.ddns.net/Metal-Play.png"
 			gameoverlogo.src = "http://patoyoboii.ddns.net/Game-Over.png"
+			tree1.src = "http://patoyoboii.ddns.net/tree-1.png"
 		}
 		
 		function reset()
@@ -296,7 +302,7 @@ Don't steal our code.
 			ctx.fillRect(0,500,800,10);
 			//console.log("This is draw play.");
 			
-			if (ready)
+			if (ready === true)
 			{
 				ctx.drawImage(MechaMitchell, player.x, player.y);
 			}
@@ -316,15 +322,10 @@ Don't steal our code.
 			ctx.fillStyle = "#9F703A";
 			for ( var i=0; i<enetrees.length; ++i ) {
 				ctx.fillStyle = "#9F703A";
-				ctx.fillRect(enetrees[i].x, enetrees[i].y, enetrees[i].w, enetrees[i].h ); 
+				ctx.fillRect(enetrees[i].x, enetrees[i].y, enetrees[i].w, enetrees[i].h );
 				ctx.fillStyle = "#0000FF";
-				ctx.fillText(enetrees[i].n, enetrees[i].x+20, enetrees[i].y+50);
-				
-				  
+				ctx.fillText(enetrees[i].n, enetrees[i].x+20, enetrees[i].y+50);  
 			}
-			
-
-
 		}
 		
 		var KEY_UP = 38, KEY_DOWN=40, KEY_SPACE=32, KEY_ENTER=13;
@@ -335,7 +336,6 @@ Don't steal our code.
 				
 				if( 32 == evt.keyCode )
 					evt.preventDefault();
-				
 			}
 		}
 
@@ -348,7 +348,6 @@ Don't steal our code.
 			}
 		}
 
-		
 		function handleKeypress(evt) {
 			if ( evt.keyCode == KEY_UP){
 				player.y -= player.dy;
@@ -379,7 +378,6 @@ Don't steal our code.
 			init();
 			changeState(MENU);
 		}
-		
 		main();
 	</script>
 </body>
