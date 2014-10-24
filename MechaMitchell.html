@@ -242,20 +242,41 @@ Don't steal our code.
 			if ( spawntime <= 0 )
 			{
 				var enetree;
+				var re = 1+Math.floor(Math.random()*5);
 				
 				
-				if ( r === 1)
+				if ( r === 1){
+					if(re <= 3)
 						enetree = { x: 900, y: 30, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
-				else if ( r === 2)
+					else
+						enetree = { x: 900, y: 30, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
+				}
+				else if ( r === 2){
+					if(re <= 3)
 						enetree = {x: 900, y: 150, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
-				else if ( r === 3)
+					else
+						enetree = {x: 900, y: 150, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
+				}
+				else if ( r === 3){
+					if(re <= 3)
 						enetree = {x: 900, y: 270, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
-				else if ( r === 4)
+					else
+						enetree = {x: 900, y: 270, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
+				}
+				else if ( r === 4){
+					if(re <= 3)
 						enetree = {x: 900, y: 390, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
-				else if ( r === 5)
+					else
+						enetree = {x: 900, y: 390, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
+				}
+				else if ( r === 5){
+					if(re <= 3)
 						enetree = {x: 900, y: 510, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
+					else
+						enetree = {x: 900, y: 510, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
+				}
 				if (ninety >= 99)
-					ninety = 89; 
+					ninety = 89;
 				ninety++;
 				enetrees.push(enetree);
 				spawntime = 3000;
@@ -276,6 +297,8 @@ Don't steal our code.
 			}
 
 		}
+		
+
 		
 		function shot(n){
 			for ( var i=0; i<enetrees.length; i++ ) {
