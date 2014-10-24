@@ -85,6 +85,9 @@ Don't steal our code.
 			gameoverlogo.onload = function() {
 				ready3 = true;
 			}
+			tree1.onload = function() {
+				ready4= true;
+			}
 			MechaMitchell.src = "http://patoyoboii.ddns.net/MechaMitchell.png";
 			playlogo.src = "http://patoyoboii.ddns.net/Metal-Play.png"
 			gameoverlogo.src = "http://patoyoboii.ddns.net/Game-Over.png"
@@ -106,7 +109,6 @@ Don't steal our code.
 		}
 		
 		function changeState( newState ) {
-			//console.log("Changing state to " + newState);
 			if ( timerID != -1 )
 				clearInterval(timerID);
 			if ( newState === MENU ){
@@ -116,7 +118,6 @@ Don't steal our code.
 			else if ( newState === PLAY ) {
 				reset();
 				timerID = setInterval(function() { updatePlay(); drawPlay(ctx); }, 1000/60);
-				//console.log("Really?");
 			}
 			else if ( newState === GAMEOVER ) {
 				reset();
@@ -129,11 +130,9 @@ Don't steal our code.
 		
 		function updateMenu() {
 		if ( mouse.clicked && contains(playButton, mouse) === true ) {
-				//console.log("changing state to play b/c mouse");
 				changeState(PLAY);
 			}
 			else if (enter === true) {
-				//console.log("changing state to play b/c enter");
 				changeState(PLAY);
 			}	
 			mouse.clicked = false;
@@ -148,8 +147,10 @@ Don't steal our code.
 			{
 			ctx.drawImage(playlogo, playButton.x, playButton.y);
 			}
-			
-			//console.log("This is draw menu.");
+			/*if (ready4 === true)
+			{
+				ctx.drawImage(tree1, 400, 100);
+			}*/
 		}
 		
 		function updateGameOver() {
@@ -284,9 +285,6 @@ Don't steal our code.
 			
 			if ( life === 0 ) {
 				changeState(GAMEOVER);
-				/*var sound = new Howl({
-				urls: ['falling ship.mp3']
-				}).play();*/
 				var sound = new Howl({
 				urls: ['http://patoyoboii.ddns.net/nooo.mp3']
 				}).play();
@@ -320,7 +318,6 @@ Don't steal our code.
 			ctx.fillRect(0,260,800,10);
 			ctx.fillRect(0,380,800,10);
 			ctx.fillRect(0,500,800,10);
-			//console.log("This is draw play.");
 			
 			if (ready === true)
 			{
@@ -402,3 +399,6 @@ Don't steal our code.
 	</script>
 </body>
 </html>
+
+
+
