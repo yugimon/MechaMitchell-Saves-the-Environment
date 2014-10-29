@@ -90,12 +90,10 @@ Don't steal our code.
 			tree1.onload = function() {
 				ready4= true;
 			}
-<<<<<<< HEAD
-=======
+
 			tree2.onload = function() {
 				ready5= true;
 			}
->>>>>>> origin/master
 			MechaMitchell.src = "http://patoyoboii.ddns.net/MechaMitchell.png";
 			playlogo.src = "http://patoyoboii.ddns.net/Metal-Play.png"
 			gameoverlogo.src = "http://patoyoboii.ddns.net/Game-Over.png"
@@ -224,7 +222,7 @@ Don't steal our code.
 				else if ( shot(i)) {
 					bullets.splice(i,1);	
 				}
-				else if (bullets[i].x > 790) {
+				if (bullets[i].x >= 790) {
 					bullets.splice(i,1);
 				}
 			}
@@ -249,39 +247,50 @@ Don't steal our code.
 			if ( spawntime <= 0 )
 			{
 				var enetree;
-				var re = 1+Math.floor(Math.random()*5);
+				var re = 1+Math.floor(Math.random()*6);
 				
 				
 				if ( r === 1){
 					if(re <= 3)
-						enetree = { x: 900, y: 30, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
-					else
+						enetree = { x: 900, y: 30, w: 110, h: 110, dx: 2, lives: 2, n: ninety};
+					else if (re <= 5 && re > 3 )
 						enetree = { x: 900, y: 30, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
+					else
+						enetree = { x: 900, y: 30, w: 110, h: 110, dx:1, lives: 5, n: ninety+1000};
 				}
 				else if ( r === 2){
 					if(re <= 3)
-						enetree = {x: 900, y: 150, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
-					else
+						enetree = {x: 900, y: 150, w: 110, h: 110, dx: 2, lives: 2, n: ninety};
+					else if (re <= 5 && re > 3 )
 						enetree = {x: 900, y: 150, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
+					else
+						enetree = { x: 900, y: 150, w: 110, h: 110, dx:1, lives: 5, n: ninety+1000};
 				}
 				else if ( r === 3){
 					if(re <= 3)
-						enetree = {x: 900, y: 270, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
-					else
+						enetree = {x: 900, y: 270, w: 110, h: 110, dx: 2, lives: 2, n: ninety};
+					else if (re <= 5 && re > 3 )
 						enetree = {x: 900, y: 270, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
+					else
+						enetree = { x: 900, y: 270, w: 110, h: 110, dx:1, lives: 5, n: ninety+1000};
 				}
 				else if ( r === 4){
 					if(re <= 3)
-						enetree = {x: 900, y: 390, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
-					else
+						enetree = {x: 900, y: 390, w: 110, h: 110, dx: 2, lives: 2, n: ninety};
+					else if (re <= 5 && re > 3 )
 						enetree = {x: 900, y: 390, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
+					else
+						enetree = { x: 900, y: 390, w: 110, h: 110, dx:1, lives: 5, n: ninety+1000};
 				}
 				else if ( r === 5){
 					if(re <= 3)
-						enetree = {x: 900, y: 510, w: 110, h: 110, dx: 1, lives: 2, n: ninety};
-					else
+						enetree = {x: 900, y: 510, w: 110, h: 110, dx: 2, lives: 2, n: ninety};
+					else if (re <= 6 && re > 3 )
 						enetree = {x: 900, y: 510, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
+					else
+						enetree = { x: 900, y: 510, w: 110, h: 110, dx:1, lives: 5, n: ninety+1000};
 				}
+					
 				if (ninety >= 99)
 					ninety = 89;
 				ninety++;
