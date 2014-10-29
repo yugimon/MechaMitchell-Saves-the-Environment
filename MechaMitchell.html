@@ -51,11 +51,13 @@ Don't steal our code.
 		var MechaMitchell = new Image();
 		var ready = false;
 		var playlogo = new Image();
-		var gameoverlogo = new Image();
-		var tree1 = new Image();
 		var ready2 = false;
+		var gameoverlogo = new Image();
 		var ready3 = false;
+		var tree1 = new Image();
 		var ready4 = false;
+		var tree2 = new Image();
+		var ready5 = false;
 				
 		function contains( r, m ) {
 			return ! (r.x>m.x || r.y>m.y || m.x>r.x+r.w || m.y>r.y+r.h );
@@ -88,10 +90,17 @@ Don't steal our code.
 			tree1.onload = function() {
 				ready4= true;
 			}
+<<<<<<< HEAD
+=======
+			tree2.onload = function() {
+				ready5= true;
+			}
+>>>>>>> origin/master
 			MechaMitchell.src = "http://patoyoboii.ddns.net/MechaMitchell.png";
 			playlogo.src = "http://patoyoboii.ddns.net/Metal-Play.png"
 			gameoverlogo.src = "http://patoyoboii.ddns.net/Game-Over.png"
 			tree1.src = "http://patoyoboii.ddns.net/tree-1.png"
+			tree2.src = "http://patoyoboii.ddns.net/tree-2.png"
 		}
 		
 		function reset()
@@ -339,7 +348,15 @@ Don't steal our code.
 			ctx.fillStyle = "#9F703A";
 			for ( var i=0; i<enetrees.length; ++i ) {
 				ctx.fillStyle = "#9F703A";
-				ctx.fillRect(enetrees[i].x, enetrees[i].y, enetrees[i].w, enetrees[i].h );
+				//ctx.fillRect(enetrees[i].x, enetrees[i].y, enetrees[i].w, enetrees[i].h );
+				if (ready4 === true && enetrees[i].n <= 100)
+				{
+					ctx.drawImage(tree1, enetrees[i].x, enetrees[i].y);
+				}
+				else if (ready5 === true && enetrees[i].n > 100)
+				{
+					ctx.drawImage(tree2, enetrees[i].x, enetrees[i].y);
+				}
 				ctx.fillStyle = "#0000FF";
 				ctx.fillText(enetrees[i].n, enetrees[i].x+20, enetrees[i].y+50);  
 			}
