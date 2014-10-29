@@ -36,7 +36,7 @@ Don't steal our code.
 		
 		var gun = {x: 80, y: 315, w: 110, h: 110};
 
-		var MENU = 0, PLAY = 1, GAMEOVER = 2;
+		var MENU = 0, PLAY = 1,PAUSE = 2, GAMEOVER = 3;
 		var state = MENU;
 		var timerID = -1;
 		var mouse = { x: 0, y: 20, clicked: false };
@@ -44,6 +44,7 @@ Don't steal our code.
 		var waitTime = 0;
 		var lastTime = 0;
 		var enter = false;
+		var pause = false;
 		
 		var life = 5;
 		var kills = 0;
@@ -123,11 +124,12 @@ Don't steal our code.
 				timerID = setInterval(function() { updateMenu(); drawMenu(ctx); }, 1000/60);
 			}
 			else if ( newState === PLAY ) {
-				reset();
 				timerID = setInterval(function() { updatePlay(); drawPlay(ctx); }, 1000/60);
 			}
+			else if ( newState === PAUSE ) {
+				timerID = setInterval(function() { drawPaused(ctx); updatePaused(); }, 1000/60);
+			}
 			else if ( newState === GAMEOVER ) {
-				reset();
 				waitTime = 3000;
 				lastTime = performance.now();
 			timerID = setInterval(function() { updateGameOver(); drawGameOver(ctx); }, 1000/60);
@@ -176,6 +178,18 @@ Don't steal our code.
 				ctx.drawImage(gameoverlogo, 300, 270);
 			}
 		}
+		function drawPaused(ctx) {
+			ctx.fillText("PAUSED", 300, 270);
+		}
+		
+		function updatePaused() {
+			if (pause == true) {
+				changeState(PLAY);
+				pause = false;
+			}
+			
+		}
+			
 		
 		function updatePlay() {
 			var orig = { x: player.x, y: player.y};
@@ -256,7 +270,7 @@ Don't steal our code.
 					else if (re <= 5 && re > 3 )
 						enetree = { x: 900, y: 30, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
 					else
-						enetree = { x: 900, y: 30, w: 110, h: 110, dx:1, lives: 5, n: ninety+1000};
+						enetree = { x: 900, y: 30, w: 110, h: 110, dx:1, lives: 6, n: ninety+1000};
 				}
 				else if ( r === 2){
 					if(re <= 3)
@@ -264,7 +278,7 @@ Don't steal our code.
 					else if (re <= 5 && re > 3 )
 						enetree = {x: 900, y: 150, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
 					else
-						enetree = { x: 900, y: 150, w: 110, h: 110, dx:1, lives: 5, n: ninety+1000};
+						enetree = { x: 900, y: 150, w: 110, h: 110, dx:1, lives: 6, n: ninety+1000};
 				}
 				else if ( r === 3){
 					if(re <= 3)
@@ -272,7 +286,7 @@ Don't steal our code.
 					else if (re <= 5 && re > 3 )
 						enetree = {x: 900, y: 270, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
 					else
-						enetree = { x: 900, y: 270, w: 110, h: 110, dx:1, lives: 5, n: ninety+1000};
+						enetree = { x: 900, y: 270, w: 110, h: 110, dx:1, lives: 6, n: ninety+1000};
 				}
 				else if ( r === 4){
 					if(re <= 3)
@@ -280,7 +294,7 @@ Don't steal our code.
 					else if (re <= 5 && re > 3 )
 						enetree = {x: 900, y: 390, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
 					else
-						enetree = { x: 900, y: 390, w: 110, h: 110, dx:1, lives: 5, n: ninety+1000};
+						enetree = { x: 900, y: 390, w: 110, h: 110, dx:1, lives: 6, n: ninety+1000};
 				}
 				else if ( r === 5){
 					if(re <= 3)
@@ -288,7 +302,7 @@ Don't steal our code.
 					else if (re <= 6 && re > 3 )
 						enetree = {x: 900, y: 510, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
 					else
-						enetree = { x: 900, y: 510, w: 110, h: 110, dx:1, lives: 5, n: ninety+1000};
+						enetree = { x: 900, y: 510, w: 110, h: 110, dx:1, lives: 6, n: ninety+1000};
 				}
 					
 				if (ninety >= 99)
@@ -300,6 +314,12 @@ Don't steal our code.
 
 			
 			lastStamp = curStamp;
+			
+			if ( pause == true){
+				changeState(PAUSE);
+				pause = false;
+			}
+			
 			
 			if ( life === 0 ) {
 				changeState(GAMEOVER);
@@ -371,7 +391,7 @@ Don't steal our code.
 			}
 		}
 		
-		var KEY_UP = 38, KEY_DOWN=40, KEY_SPACE=32, KEY_ENTER=13;
+		var KEY_UP = 38, KEY_DOWN=40, KEY_SPACE=32, KEY_ENTER=13, KEY_PAUSE=80;
 		
 		function handleKeyDown(evt) {
 			if ( evt.keyCode == KEY_SPACE ) {
@@ -403,11 +423,15 @@ Don't steal our code.
 			if ( evt.keyCode == KEY_ENTER){
 				enter = true;
 			}
-			
+			if ( evt.keyCode == KEY_PAUSE){
+				pause = true;
+			}
 			
 			if( 38 <= evt.keyCode && evt.keyCode <= 40)
 				evt.preventDefault();
 			if( 13 == evt.keyCode )
+				evt.preventDefault();
+			if( 80 == evt.keyCode )
 				evt.preventDefault();
 		}
 		
