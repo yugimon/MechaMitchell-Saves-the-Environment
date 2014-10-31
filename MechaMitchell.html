@@ -20,6 +20,7 @@ Don't steal our code.
 		var ctx;
 		var player = { x: 20, y:270, w: 110, h: 110, dy:120};
 		var enetrees = [];
+		var powerups = [];
 		var key = {left: false, right: false, up: false, down: false};
 		
 		var ninety = 90;
@@ -33,6 +34,7 @@ Don't steal our code.
 		var elapsed = 0;
 		var fireTime = 0;
 		var spawntime = 0;
+		var powertime = 0;
 		
 		var gun = {x: 80, y: 315, w: 110, h: 110};
 
@@ -226,7 +228,9 @@ Don't steal our code.
 			curStamp = Date.now();
 			elapsed = curStamp - lastStamp;
 			fireTime -= elapsed;
-			spawntime -= elapsed
+			spawntime -= elapsed;
+			powertime -= elapsed;
+			
 			if ( firing && fireTime <= 0 )
 			{
 				var bullet = {
@@ -269,7 +273,54 @@ Don't steal our code.
 				}
 				
 			}
+			//powerups spawner
+			var pt = 10+Math.floor(Math.random()*21);
+			powertime = pt *1000;
 			
+			if ( powertime <= 0 )
+			{
+				var power;
+				var p = 1+Math.floor(Math.random()*2);
+				var r = 1+Math.floor(Math.random()*5);
+				
+				if ( r === 1){
+					if(p === 1)
+						power = { x: 350, y: 30, w: 110, h: 110, c:"#00FF00"};
+					else if (p === 2)
+						power = { x: 350, y: 30, w: 110, h: 110, c:"#997733"};
+				}
+				else if ( r === 2){
+					if(p === 1)
+						power = {x: 350, y: 150, w: 110, h: 110, c:"#00FF00"};
+					else if (p === 2)
+						power = {x: 350, y: 150, w: 110, h: 110, c:"#997733"};
+				}
+				else if ( r === 3){
+					if(p === 1)
+						power = {x: 350, y: 270, w: 110, h: 110, c:"#00FF00"};
+					else if (p === 2)
+						power = {x: 350, y: 270, w: 110, h: 110, c:"#997733"};
+				}
+				else if ( r === 4){
+					if(p === 1)
+						power = {x: 350, y: 390, w: 110, h: 110, c:"#00FF00"};
+					else if (p === 2)
+						power = {x: 350, y: 390, w: 110, h: 110, c:"#997733"};
+				}
+				else if ( r === 5){
+					if(p === 1)
+						power = {x: 350, y: 510, w: 110, h: 110, c:"#00FF00"};
+					else if (p === 2)
+						power = {x: 350, y: 510, w: 110, h: 110, c:"#997733"};
+				}
+				powerup.push(powers);
+				var pt = 10+Math.floor(Math.random()*21);
+				powertime = pt *1000;
+			}
+			
+			
+			
+			//entrees spawner
 			if ( spawntime <= 0 )
 			{
 				var enetree;
