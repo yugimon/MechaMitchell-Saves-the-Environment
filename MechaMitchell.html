@@ -59,6 +59,8 @@ Don't steal our code.
 		var ready4 = false;
 		var tree2 = new Image();
 		var ready5 = false;
+		var background = new Image();
+		var ready6 = false;
 				
 		function contains( r, m ) {
 			return ! (r.x>m.x || r.y>m.y || m.x>r.x+r.w || m.y>r.y+r.h );
@@ -95,11 +97,15 @@ Don't steal our code.
 			tree2.onload = function() {
 				ready5= true;
 			}
+			background.onload = function() {
+				ready6= true;
+			}
 			MechaMitchell.src = "http://patoyoboii.ddns.net/MechaMitchell.png";
 			playlogo.src = "http://patoyoboii.ddns.net/Metal-Play.png"
 			gameoverlogo.src = "http://patoyoboii.ddns.net/Game-Over.png"
 			tree1.src = "http://patoyoboii.ddns.net/tree-1.png"
 			tree2.src = "http://patoyoboii.ddns.net/tree-2.png"
+			background.src = "Space Background.png";
 		}
 		
 		function reset()
@@ -346,6 +352,10 @@ Don't steal our code.
 
 		function drawPlay(ctx) {
 			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+			if ( ready6 === true );
+				{
+					ctx.drawImage(background, 0, 0);
+				}
 			ctx.fillStyle = "#000000";
 			ctx.fillRect(0,20,10,600);
 			ctx.fillRect(0,20,800,10);
@@ -387,7 +397,7 @@ Don't steal our code.
 					ctx.drawImage(tree2, enetrees[i].x, enetrees[i].y);
 				}
 				ctx.fillStyle = "#0000FF";
-				ctx.fillText(enetrees[i].n, enetrees[i].x+20, enetrees[i].y+50);  
+				ctx.fillText(enetrees[i].n, enetrees[i].x+20, enetrees[i].y+50);
 			}
 		}
 		
@@ -449,6 +459,8 @@ Don't steal our code.
 	</script>
 </body>
 </html>
+
+
 
 
 
