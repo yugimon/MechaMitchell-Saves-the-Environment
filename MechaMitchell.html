@@ -38,11 +38,13 @@ Don't steal our code.
 		
 		var gun = {x: 80, y: 315, w: 110, h: 110};
 
-		var MENU = 0, PLAY = 1,PAUSE = 2, GAMEOVER = 3;
+		var MENU = 0, PLAY = 1,PAUSE = 2, GAMEOVER = 3, HTP = 4, INFO = 5;
 		var state = MENU;
 		var timerID = -1;
 		var mouse = { x: 0, y: 20, clicked: false };
 		var playButton = {};
+		var infoButton = {};
+		var backButton = {};
 		var waitTime = 0;
 		var lastTime = 0;
 		var enter = false;
@@ -85,15 +87,24 @@ Don't steal our code.
 			playButton.y = ctx.canvas.height/2 - 50;
 			playButton.w = 200;
 			playButton.h = 100;
+			infoButton.x = ctx.canvas.width/2-100;
+			infoButton.y = ctx.canvas.height/2 + 150;
+			infoButton.w = 200;
+			infoButton.h = 100;
+			backButton.x = ctx.canvas.width - 200;
+			backButton.y = ctx.canvas.height- 100;
+			backButton.w = 200;
+			backButton.h = 100;
+			playlogo.onload = function() {
+				ready2 = true;
+			}
 			background.onload = function() {
 				ready6= true;
 			}
 			MechaMitchell.onload = function() {
 				ready = true;
 			}
-			playlogo.onload = function() {
-				ready2 = true;
-			}
+			
 			gameoverlogo.onload = function() {
 				ready3 = true;
 			}
@@ -144,6 +155,9 @@ Don't steal our code.
 			else if ( newState === PAUSE ) {
 				timerID = setInterval(function() { drawPaused(ctx); updatePaused(); }, 1000/60);
 			}
+			else if ( newState === INFO ) {
+				timerID = setInterval(function() { drawInfo(ctx); updateInfo(); }, 1000/60);
+			}
 			else if ( newState === GAMEOVER ) {
 				waitTime = 3000;
 				lastTime = performance.now();
@@ -153,12 +167,15 @@ Don't steal our code.
 		}
 		
 		function updateMenu() {
-		if ( mouse.clicked && contains(playButton, mouse) === true ) {
+			if ( mouse.clicked && contains(playButton, mouse) === true ) {
 				changeState(PLAY);
 			}
 			else if (enter === true) {
 				changeState(PLAY);
 			}	
+			if ( mouse.clicked && contains(infoButton, mouse) === true ) {
+				changeState(INFO);
+			}
 			mouse.clicked = false;
 			enter = false;
 		}
@@ -169,13 +186,38 @@ Don't steal our code.
 
 			if ( ready2 === true )
 			{
-			ctx.drawImage(playlogo, playButton.x, playButton.y);
+				ctx.drawImage(playlogo, playButton.x, playButton.y);
 			}
+			ctx.strokeRect(infoButton.x, infoButton.y, infoButton.w, infoButton.h);
 			/*if (ready4 === true)
 			{
 				ctx.drawImage(tree1, 400, 100);
 			}*/
 		}
+		function drawInfo(ctx) {
+			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+			ctx.fillText("Info: ", 400,315 );
+			ctx.strokeRect(backButton.x, backButton.y, backButton.w, backButton.h);
+		}
+		
+		function updateInfo(){
+			if ( mouse.clicked && contains(backButton, mouse) === true ) {
+				changeState(MENU);
+			}
+			
+		}
+		
+		function drawHTP(ctx) {
+			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+			ctx.fillText("How to Play: ", 400,315 );
+			
+		}
+		
+		function updateHTP() {
+		
+		}
+		
+		
 		
 		function updateGameOver() {
 			
@@ -435,7 +477,7 @@ Don't steal our code.
 			ctx.textBaseline = "top";
 			
 			ctx.fillText("Lives: "+life, 50, 0);
-			ctx.fillText("Kills: "+kills, 300, 0);
+			ctx.fillText("Kills: "+kills, 300, 0); 
 			
 			ctx.fillStyle = "#00FF00";
 			for ( var i=0; i<bullets.length; ++i ) {
