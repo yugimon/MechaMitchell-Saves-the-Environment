@@ -27,7 +27,7 @@ Don't steal our code.
 		
 		var firing = false;
 		var bullets = [];
-		var bspeed = 6;
+		var bspeed = 6; 
 		
 		var curStamp = 0;
 		var lastStamp = 0;
@@ -65,6 +65,8 @@ Don't steal our code.
 		var ready6 = false;
 		var tree3 = new Image();
 		var ready7 = false;
+		var menubackground = new Image();
+		var ready8 = false;
 				
 		function contains( r, m ) {
 			return ! (r.x>m.x || r.y>m.y || m.x>r.x+r.w || m.y>r.y+r.h );
@@ -108,6 +110,9 @@ Don't steal our code.
 			tree3.onload = function() {
 				ready7= true;
 			}
+			menubackground.onload = function() {
+				ready8= true;
+			}
 			MechaMitchell.src = "http://patoyoboii.ddns.net/MechaMitchell.png";
 			playlogo.src = "http://patoyoboii.ddns.net/Metal-Play.png"
 			gameoverlogo.src = "http://patoyoboii.ddns.net/Game-Over.png"
@@ -115,6 +120,7 @@ Don't steal our code.
 			tree2.src = "http://patoyoboii.ddns.net/tree-2.png"
 			background.src = "http://patoyoboii.ddns.net/Space-Background.png";
 			tree3.src = "http://patoyoboii.ddns.net/tree-face-3.png";
+			menubackground.src = "Futuristic-City-2.png";
 		}
 		
 		function reset()
@@ -130,7 +136,6 @@ Don't steal our code.
 			mouse.clicked = false;
 			
 		}
-		
 		function changeState( newState ) {
 			if ( timerID != -1 )
 				clearInterval(timerID);
@@ -166,15 +171,15 @@ Don't steal our code.
 		function drawMenu(ctx) {
 			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 			//ctx.strokeRect(playButton.x, playButton.y, playButton.w, playButton.h);
-
+			
+			if ( ready8 === true )
+			{
+				ctx.drawImage(menubackground, 0,0);
+			}
 			if ( ready2 === true )
 			{
 			ctx.drawImage(playlogo, playButton.x, playButton.y);
 			}
-			/*if (ready4 === true)
-			{
-				ctx.drawImage(tree1, 400, 100);
-			}*/
 		}
 		
 		function updateGameOver() {
