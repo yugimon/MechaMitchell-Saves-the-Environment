@@ -70,6 +70,8 @@ Don't steal our code.
 		var ready7 = false;
 		var menubackground = new Image();
 		var ready8 = false;
+		var infologo = new Image();
+		var ready9 = false;
 				
 		function contains( r, m ) {
 			return ! (r.x>m.x || r.y>m.y || m.x>r.x+r.w || m.y>r.y+r.h );
@@ -129,6 +131,9 @@ Don't steal our code.
 			menubackground.onload = function() {
 				ready8= true;
 			}
+			infologo.onload = function() {
+				ready9 = true;
+			}
 			MechaMitchell.src = "http://patoyoboii.ddns.net/MechaMitchell.png";
 			playlogo.src = "http://patoyoboii.ddns.net/Metal-Play.png"
 			gameoverlogo.src = "http://patoyoboii.ddns.net/Game-Over.png"
@@ -137,6 +142,7 @@ Don't steal our code.
 			background.src = "http://patoyoboii.ddns.net/Space-Background.png";
 			tree3.src = "http://patoyoboii.ddns.net/tree-face-3.png";
 			menubackground.src = "Futuristic-City-2.png";
+			infologo.src = "Info Logo.png";
 		}
 		
 		function reset()
@@ -209,7 +215,14 @@ Don't steal our code.
 			ctx.font = "20pt Arial, sans-serif";
 			ctx.textBaseline = "top";
 			ctx.strokeRect(infoButton.x, infoButton.y, infoButton.w, infoButton.h);
+<<<<<<< HEAD
 			ctx.fillText("Info", infoButton.x+70, infoButton.y+25 );
+=======
+			if ( ready9 === true)
+			{
+				ctx.drawImage(infologo, infoButton.x, infoButton.y);
+			}
+>>>>>>> origin/master
 		}
 		function drawInfo(ctx) {
 			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
