@@ -45,6 +45,7 @@ Don't steal our code.
 		var playButton = {};
 		var infoButton = {};
 		var backButton = {};
+		var htpButton = {};
 		var waitTime = 0;
 		var lastTime = 0;
 		var enter = false;
@@ -93,10 +94,14 @@ Don't steal our code.
 			infoButton.y = ctx.canvas.height/2 + 150;
 			infoButton.w = 200;
 			infoButton.h = 100;
-			backButton.x = ctx.canvas.width - 200;
+			backButton.x = 0;
 			backButton.y = ctx.canvas.height- 100;
 			backButton.w = 200;
 			backButton.h = 100;
+			htpButton.x = ctx.canvas.width-200;
+			htpButton.y = ctx.canvas.height- 100;
+			htpButton.w = 200;
+			htpButton.h = 100;
 			playlogo.onload = function() {
 				ready2 = true;
 			}
@@ -163,6 +168,9 @@ Don't steal our code.
 			else if ( newState === INFO ) {
 				timerID = setInterval(function() { drawInfo(ctx); updateInfo(); }, 1000/60);
 			}
+			else if ( newState === HTP ) {
+				timerID = setInterval(function() { drawHtp(ctx); updateHtp(); }, 1000/60);
+			}
 			else if ( newState === GAMEOVER ) {
 				waitTime = 3000;
 				lastTime = performance.now();
@@ -197,7 +205,11 @@ Don't steal our code.
 			{
 				ctx.drawImage(playlogo, playButton.x, playButton.y);
 			}
+			ctx.fillStyle = "#FF0000";
+			ctx.font = "20pt Arial, sans-serif";
+			ctx.textBaseline = "top";
 			ctx.strokeRect(infoButton.x, infoButton.y, infoButton.w, infoButton.h);
+			ctx.fillText("Info", infoButton.x+70, infoButton.y+25 );
 			/*if (ready4 === true)
 			{
 				ctx.drawImage(tree1, 400, 100);
@@ -207,23 +219,33 @@ Don't steal our code.
 			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 			ctx.fillText("Info: ", 400,315 );
 			ctx.strokeRect(backButton.x, backButton.y, backButton.w, backButton.h);
+			ctx.fillText("Back", backButton.x+70, backButton.y+25 );
+			ctx.strokeRect(htpButton.x, htpButton.y, htpButton.w, htpButton.h);
+			ctx.fillText("How to play", htpButton.x+5, htpButton.y+25 );
 		}
 		
 		function updateInfo(){
 			if ( mouse.clicked && contains(backButton, mouse) === true ) {
 				changeState(MENU);
 			}
+			if ( mouse.clicked && contains(htpButton, mouse) === true ) {
+				changeState(HTP);
+			}
 			
 		}
 		
-		function drawHTP(ctx) {
+		function drawHtp(ctx) {
 			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 			ctx.fillText("How to Play: ", 400,315 );
+			ctx.strokeRect(backButton.x, backButton.y, backButton.w, backButton.h);
+			ctx.fillText("Back", backButton.x+70, backButton.y+25 );
 			
 		}
 		
-		function updateHTP() {
-		
+		function updateHtp() {
+			if ( mouse.clicked && contains(backButton, mouse) === true ) {
+				changeState(MENU);
+			}
 		}
 		
 		
