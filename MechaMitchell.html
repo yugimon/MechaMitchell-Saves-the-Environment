@@ -85,6 +85,9 @@ Don't steal our code.
 			playButton.y = ctx.canvas.height/2 - 50;
 			playButton.w = 200;
 			playButton.h = 100;
+			background.onload = function() {
+				ready6= true;
+			}
 			MechaMitchell.onload = function() {
 				ready = true;
 			}
@@ -101,9 +104,7 @@ Don't steal our code.
 			tree2.onload = function() {
 				ready5= true;
 			}
-			background.onload = function() {
-				ready6= true;
-			}
+			
 			tree3.onload = function() {
 				ready7= true;
 			}
@@ -112,7 +113,7 @@ Don't steal our code.
 			gameoverlogo.src = "http://patoyoboii.ddns.net/Game-Over.png"
 			tree1.src = "http://patoyoboii.ddns.net/tree-1.png"
 			tree2.src = "http://patoyoboii.ddns.net/tree-2.png"
-			background.src = "http://patoyoboii.ddns.net/Space Background.png";
+			background.src = "http://patoyoboii.ddns.net/Space-Background.png";
 			tree3.src = "http://patoyoboii.ddns.net/tree-face-3.png";
 		}
 		
@@ -436,7 +437,7 @@ Don't steal our code.
 			ctx.fillText("Lives: "+life, 50, 0);
 			ctx.fillText("Kills: "+kills, 300, 0);
 			
-			ctx.fillStyle = "#FF0000";
+			ctx.fillStyle = "#00FF00";
 			for ( var i=0; i<bullets.length; ++i ) {
 				ctx.fillRect(bullets[i].x, bullets[i].y, 4, 4);
 			}
