@@ -23,8 +23,6 @@ Don't steal our code.
 		//var powerups = [];
 		var key = {left: false, right: false, up: false, down: false};
 		
-		var ninety = 90;
-		
 		var firing = false;
 		var bullets = [];
 		var bspeed = 6; 
@@ -38,7 +36,7 @@ Don't steal our code.
 		
 		var gun = {x: 80, y: 315, w: 110, h: 110};
 
-		var MENU = 0, PLAY = 1,PAUSE = 2, GAMEOVER = 3, HTP = 4, INFO = 5;
+		var MENU = 0, PLAY = 1,PAUSE = 2, GAMEOVER = 3, HTP = 4, INFO = 5, ET = 6;
 		var state = MENU;
 		var timerID = -1;
 		var mouse = { x: 0, y: 20, clicked: false };
@@ -46,11 +44,16 @@ Don't steal our code.
 		var infoButton = {};
 		var backButton = {};
 		var htpButton = {};
+		var etButton = {};
 		var waitTime = 0;
 		var lastTime = 0;
+		var ninety = 90;
+		
 		var enter = false;
 		var pause = false;
 		
+		var timetime = 1000;
+		var time = 0;
 		var life = 5;
 		var kills = 0;
 		
@@ -100,10 +103,14 @@ Don't steal our code.
 			backButton.y = ctx.canvas.height- 100;
 			backButton.w = 200;
 			backButton.h = 100;
-			htpButton.x = ctx.canvas.width-200;
+			htpButton.x = ctx.canvas.width-500;
 			htpButton.y = ctx.canvas.height- 100;
 			htpButton.w = 200;
 			htpButton.h = 100;
+			etButton.x = ctx.canvas.width-200;
+			etButton.y = ctx.canvas.height- 100;
+			etButton.w = 200;
+			etButton.h = 100;
 			playlogo.onload = function() {
 				ready2 = true;
 			}
@@ -150,8 +157,8 @@ Don't steal our code.
 			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 			life = 5;
 			kills = 0;
+			time = 0;
 			player = { x: 20, y:270, w: 110, h: 110, dy:120};
-			ninety = 90
 			enetrees = [];
 			bullets = [];
 			waitTime = 0;
@@ -176,6 +183,9 @@ Don't steal our code.
 			}
 			else if ( newState === HTP ) {
 				timerID = setInterval(function() { drawHtp(ctx); updateHtp(); }, 1000/60);
+			}
+			else if ( newState === ET ) {
+				timerID = setInterval(function() { drawEt(ctx); updateEt(); }, 1000/60);
 			}
 			else if ( newState === GAMEOVER ) {
 				waitTime = 3000;
@@ -234,6 +244,8 @@ Don't steal our code.
 			ctx.fillText("Back", backButton.x+70, backButton.y+25 );
 			ctx.strokeRect(htpButton.x, htpButton.y, htpButton.w, htpButton.h);
 			ctx.fillText("How to play", htpButton.x+5, htpButton.y+25 );
+			ctx.strokeRect(etButton.x, etButton.y, etButton.w, etButton.h);
+			ctx.fillText("Trees", etButton.x+5, etButton.y+25 );
 		}
 		
 		function updateInfo(){
@@ -242,6 +254,9 @@ Don't steal our code.
 			}
 			if ( mouse.clicked && contains(htpButton, mouse) === true ) {
 				changeState(HTP);
+			}
+			if ( mouse.clicked && contains(etButton, mouse) === true ) {
+				changeState(ET);
 			}
 			
 		}
@@ -256,11 +271,31 @@ Don't steal our code.
 			ctx.strokeRect(backButton.x, backButton.y, backButton.w, backButton.h);
 			ctx.fillText("Back", backButton.x+70, backButton.y+25 );
 			
+			
 		}
 		
 		function updateHtp() {
 			if ( mouse.clicked && contains(backButton, mouse) === true ) {
-				changeState(MENU);
+				changeState(INFO);
+			}
+			
+		}
+		function drawEt(ctx) {
+			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+			ctx.fillText("Trees: ", 50,50 );
+
+			ctx.drawImage(tree1, 50,100);
+			ctx.fillText("Goofy tree, Speed:medium, Health:2", 150,120 );
+			ctx.drawImage(tree2, 50,250);
+			ctx.fillText("Spooky tree, Speed:fast, Health:1", 150,270 );
+			ctx.drawImage(tree3, 50, 400);
+			ctx.fillText("Smiling tree, Speed:slow, Health:4", 150,420 );
+			ctx.strokeRect(backButton.x, backButton.y, backButton.w, backButton.h);
+			ctx.fillText("Back", backButton.x+70, backButton.y+25 );
+		}
+		function updateEt() {
+			if ( mouse.clicked && contains(backButton, mouse) === true ) {
+				changeState(INFO);
 			}
 		}
 		
@@ -317,9 +352,11 @@ Don't steal our code.
 				
 			curStamp = Date.now();
 			elapsed = curStamp - lastStamp;
+			timetime -= elapsed;
 			fireTime -= elapsed;
 			spawntime -= elapsed;
 			//powertime -= elapsed;
+			
 			
 			if ( firing && fireTime <= 0 )
 			{
@@ -461,13 +498,42 @@ Don't steal our code.
 					
 				if (ninety >= 99)
 					ninety = 89;
-				ninety++;
+				ninety++;	
 				enetrees.push(enetree);
-				spawntime = 3000;
+				spawntime = 4000;
+				if (time >= 45 ){
+					spawntime = 3500;
+
+				}
+				if (time >= 90){
+					spawntime = 3000;
+
+				}
+				if ( time>= 135){
+					spawntime = 2500;
+
+				}
+				if ( time >= 180){
+					spawntime = 2000;
+
+				}
+				if ( time >= 225){
+					spawntime = 1500;
+
+				}
+				if (time >= 270){
+					spawntime = 1000;
+
+				}
+			}
+			if (timetime <= 0){
+				time++;
+				timetime = 1000;
 			}
 
 			
 			lastStamp = curStamp;
+			
 			
 			if ( pause == true){
 				changeState(PAUSE);
@@ -526,6 +592,7 @@ Don't steal our code.
 			
 			ctx.fillText("Lives: "+life, 50, 0);
 			ctx.fillText("Kills: "+kills, 300, 0); 
+			ctx.fillText("Time: "+time, 550, 0);
 			
 			ctx.fillStyle = "#00FF00";
 			for ( var i=0; i<bullets.length; ++i ) {
