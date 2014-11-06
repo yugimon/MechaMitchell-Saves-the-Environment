@@ -362,10 +362,10 @@ Don't steal our code.
 			{
 				var bullet = {
 					x: gun.x,
-					y: gun.y + 1,
+					y: gun.y+3
 				};
 				bullets.push(bullet);
-				fireTime = 350;
+				fireTime = 325;
 				var sound = new Howl({
 				urls: ['High pitched jump.mp3']
 				}).play();
@@ -501,27 +501,27 @@ Don't steal our code.
 				ninety++;	
 				enetrees.push(enetree);
 				spawntime = 4000;
-				if (time >= 45 ){
+				if (time >= 30 ){
 					spawntime = 3500;
 
 				}
-				if (time >= 90){
+				if (time >= 60){
 					spawntime = 3000;
 
 				}
-				if ( time>= 135){
+				if ( time>= 90){
 					spawntime = 2500;
 
 				}
-				if ( time >= 180){
+				if ( time >= 120){
 					spawntime = 2000;
 
 				}
-				if ( time >= 225){
+				if ( time >= 180){
 					spawntime = 1500;
 
 				}
-				if (time >= 270){
+				if (time >= 240){
 					spawntime = 1000;
 
 				}
@@ -615,12 +615,10 @@ Don't steal our code.
 				{
 					ctx.drawImage(tree3, enetrees[i].x, enetrees[i].y);
 				}
-				ctx.fillStyle = "#0000FF";
-				ctx.fillText(enetrees[i].n, enetrees[i].x+20, enetrees[i].y+50);
 			}
 		}
 		
-		var KEY_UP = 38, KEY_DOWN=40, KEY_SPACE=32, KEY_ENTER=13, KEY_PAUSE=80;
+		var KEY_UP = 38, KEY_DOWN=40, KEY_SPACE=32, KEY_ENTER=13, KEY_PAUSE=80, KEY_S=83;
 		
 		function handleKeyDown(evt) {
 			if ( evt.keyCode == KEY_SPACE ) {
@@ -655,12 +653,17 @@ Don't steal our code.
 			if ( evt.keyCode == KEY_PAUSE){
 				pause = true;
 			}
+			if ( evt.keyCode == KEY_S){
+				spawntime=0;
+			}
 			
 			if( 38 <= evt.keyCode && evt.keyCode <= 40)
 				evt.preventDefault();
 			if( 13 == evt.keyCode )
 				evt.preventDefault();
 			if( 80 == evt.keyCode )
+				evt.preventDefault();
+			if( 83 == evt.keyCode )
 				evt.preventDefault();
 		}
 		
