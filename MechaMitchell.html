@@ -618,7 +618,7 @@ Don't steal our code.
 			}
 		}
 		
-		var KEY_UP = 38, KEY_DOWN=40, KEY_SPACE=32, KEY_ENTER=13, KEY_PAUSE=80, KEY_S=83;
+		var KEY_UP = 38, KEY_DOWN=40, KEY_SPACE=32, KEY_ENTER=13, KEY_PAUSE=80, KEY_S=83, KEY_K=75;
 		
 		function handleKeyDown(evt) {
 			if ( evt.keyCode == KEY_SPACE ) {
@@ -656,6 +656,12 @@ Don't steal our code.
 			if ( evt.keyCode == KEY_S){
 				spawntime=0;
 			}
+			if ( evt.keyCode == KEY_K){
+				for ( var i=0; i<enetrees.length; i++ ) {
+				enetrees.splice(i,1);
+				kills++;
+				}
+			}
 			
 			if( 38 <= evt.keyCode && evt.keyCode <= 40)
 				evt.preventDefault();
@@ -664,6 +670,8 @@ Don't steal our code.
 			if( 80 == evt.keyCode )
 				evt.preventDefault();
 			if( 83 == evt.keyCode )
+				evt.preventDefault();
+			if( 75 == evt.keyCode )
 				evt.preventDefault();
 		}
 		
