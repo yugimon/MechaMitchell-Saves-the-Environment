@@ -81,7 +81,9 @@ Don't steal our code.
 		var ready11 = false;
 		var backlogo = new Image();
 		var ready12 = false;
-				
+		var treelogo = new Image();
+		var ready13 = false;
+		
 		function contains( r, m ) {
 			return ! (r.x>m.x || r.y>m.y || m.x>r.x+r.w || m.y>r.y+r.h );
 		}
@@ -156,6 +158,9 @@ Don't steal our code.
 			backlogo.onload = function() {
 				ready12 = true;
 			}
+			treelogo.onload = function() {
+				ready13 = true;
+			}
 			MechaMitchell.src = "MechaMitchell.png";
 			playlogo.src = "Metal-Play.png"
 			gameoverlogo.src = "Game-Over.png"
@@ -168,6 +173,7 @@ Don't steal our code.
 			pauselogo.src = "Paused.png";
 			htplogo.src = "How to Play Logo.png";
 			backlogo.src = "Back Logo.png";
+			treelogo.src = "Tree Logo.png";
 		}
 		
 		function reset()
@@ -258,15 +264,21 @@ Don't steal our code.
 			ctx.fillText("and to hunger for technology.", 10,250 );
 			ctx.fillText("You are MechaMitchell and your job is to protect the world's ", 10,300 );
 			ctx.fillText("technology for as long as you can.", 10,350 );
-			ctx.strokeRect(backButton.x, backButton.y, backButton.w, backButton.h);
-			ctx.fillText("Back", backButton.x+70, backButton.y+25 );
+			//ctx.strokeRect(backButton.x, backButton.y, backButton.w, backButton.h);
+			if ( ready11 === true)
+			{
+				ctx.drawImage(backlogo, backButton.x+70, backButton.y+25 );
+			}
 			//ctx.strokeRect(htpButton.x, htpButton.y, htpButton.w, htpButton.h);
 			if ( ready12 === true )
 			{
 				ctx.drawImage(htplogo, htpButton.x+5, htpButton.y+25 );
 			}
-			ctx.strokeRect(etButton.x, etButton.y, etButton.w, etButton.h);
-			ctx.fillText("Trees", etButton.x+5, etButton.y+25 );
+			//ctx.strokeRect(etButton.x, etButton.y, etButton.w, etButton.h);
+			if ( ready13 === true )
+			{
+				ctx.drawImage(treelogo, etButton.x+5, etButton.y+25 );
+			}
 		}
 		
 		function updateInfo(){
@@ -289,17 +301,17 @@ Don't steal our code.
 			ctx.fillText("Press \"DOWN\" to move up one block ", 50,250 );
 			ctx.fillText("Press \"SPACE\" to shoot ", 50,350 );
 			ctx.fillText("Press \"P\" to pause ", 50,450 );
-			ctx.strokeRect(backButton.x, backButton.y, backButton.w, backButton.h);
-			ctx.fillText("Back", backButton.x+70, backButton.y+25 );
-			
-			
+			//ctx.strokeRect(backButton.x, backButton.y, backButton.w, backButton.h);
+			if ( ready11 === true)
+			{
+				ctx.drawImage(backlogo, backButton.x+70, backButton.y+25 );
+			}
 		}
 		
 		function updateHtp() {
 			if ( mouse.clicked && contains(backButton, mouse) === true ) {
 				changeState(INFO);
-			}
-			
+			}	
 		}
 		function drawEt(ctx) {
 			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
