@@ -128,18 +128,15 @@ Don't steal our code.
 			MechaMitchell.onload = function() {
 				ready = true;
 			}
-			
 			gameoverlogo.onload = function() {
 				ready3 = true;
 			}
 			tree1.onload = function() {
 				ready4= true;
 			}
-
 			tree2.onload = function() {
 				ready5= true;
 			}
-			
 			tree3.onload = function() {
 				ready7= true;
 			}
@@ -187,7 +184,6 @@ Don't steal our code.
 			bullets = [];
 			waitTime = 0;
 			mouse.clicked = false;
-			
 		}
 		function changeState( newState ) {
 			if ( timerID != -1 )
@@ -291,7 +287,6 @@ Don't steal our code.
 			if ( mouse.clicked && contains(etButton, mouse) === true ) {
 				changeState(ET);
 			}
-			
 		}
 		
 		function drawHtp(ctx) {
@@ -335,8 +330,6 @@ Don't steal our code.
 			}
 		}
 		
-		
-		
 		function updateGameOver() {
 			
 			var curTime = performance.now();
@@ -368,7 +361,6 @@ Don't steal our code.
 			}
 			
 		}
-			
 		
 		function updatePlay() {
 			var orig = { x: player.x, y: player.y};
@@ -438,7 +430,6 @@ Don't steal our code.
 					enetrees.splice(i,1);
 					life -= 1;
 				}
-				
 			}
 			//powerups spawner
 			var pt = 10+Math.floor(Math.random()*21);
@@ -486,14 +477,11 @@ Don't steal our code.
 			}
 			*/
 			
-			
-			
 			//entrees spawner
 			if ( spawntime <= 0 )
 			{
 				var enetree;
 				var re = 1+Math.floor(Math.random()*6);
-				
 				
 				if ( r === 1){
 					if(re <= 3)
@@ -571,27 +559,20 @@ Don't steal our code.
 				timetime = 1000;
 			}
 
-			
 			lastStamp = curStamp;
-			
 			
 			if ( pause == true){
 				changeState(PAUSE);
 				pause = false;
 			}
 			
-			
 			if ( life === 0 ) {
 				changeState(GAMEOVER);
 				var sound = new Howl({
 				urls: ['nooo.mp3']
 				}).play();
-
 			}
-
 		}
-		
-
 		
 		function shot(n){
 			for ( var i=0; i<enetrees.length; i++ ) {
@@ -599,7 +580,6 @@ Don't steal our code.
 						enetrees[i].lives -= 1;
 						return true;
 				}
-					
 			}
 			return false;
 		}
