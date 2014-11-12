@@ -22,6 +22,7 @@ Don't steal our code.
 		var enetrees = [];
 		var powerups = [];
 		var key = {left: false, right: false, up: false, down: false};
+		var color = "#FF0000";
 		
 		var firing = false;
 		var bullets = [];
@@ -32,6 +33,7 @@ Don't steal our code.
 		var elapsed = 0;
 		var fireTime = 0;
 		var spawntime = 0;
+		var clonetime = 10000;;
 		var pt = 10+Math.floor(Math.random()*21);
 		var powertime = pt;
 		
@@ -368,6 +370,7 @@ Don't steal our code.
 		}
 		
 		function updatePlay() {
+			
 			var orig = { x: player.x, y: player.y};
 			
 			if (key.up){
@@ -392,21 +395,57 @@ Don't steal our code.
 			timetime -= elapsed;
 			fireTime -= elapsed;
 			spawntime -= elapsed;
+			clonetime -= elapsed;
 			//powertime -= elapsed;
 			
 			
 			if ( firing && fireTime <= 0 )
 			{
-				var bullet = {
-					x: gun.x,
-					y: gun.y+3
-				};
+				var bullet = 0;
+				if (powered2 == true) {
+					bullet = {
+						x: gun.x,
+						y: 75
+					};
+					bullets.push(bullet);
+					bullet = {
+						x: gun.x,
+						y: 215
+					};
+					bullets.push(bullet);
+					bullet = {
+						x: gun.x,
+						y: 315
+					};
+					bullets.push(bullet);
+					bullet = {
+						x: gun.x,
+						y: 445
+					};
+					bullets.push(bullet);
+					bullet = {
+						x: gun.x,
+						y: 560
+					};
+					bullets.push(bullet);
+				}
+				if (clonetime <= 0) {
+					powered2 = false;
+					clonetime = 10000;
+				}
+				else{
+					bullet = {
+						x: gun.x,
+						y: gun.y+3
+					};
+				}
 				bullets.push(bullet);
 				fireTime = 325;
 				var sound = new Howl({
 				urls: ['High pitched jump.mp3']
 				}).play();
 			}
+				
 			
 			var r = 1+Math.floor(Math.random()*5);
 			for ( var i=0; i<bullets.length; i++ ) {
@@ -619,12 +658,8 @@ Don't steal our code.
 				{
 					ctx.drawImage(background, 0, 0);
 				}
-			if (powered2 == true){
-				{
-					ctx.fillStyle = "#987654";
-					ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
-				}
-			}
+			
+			
 			ctx.fillStyle = "#000000";
 			ctx.fillRect(0,20,10,600);
 			ctx.fillRect(0,20,800,10);
