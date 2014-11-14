@@ -429,17 +429,19 @@ Don't steal our code.
 					};
 					bullets.push(bullet);
 				}
-				if (clonetime <= 0) {
-					powered2 = false;
-					clonetime = 10000;
-				}
 				else{
 					bullet = {
 						x: gun.x,
 						y: gun.y+3
 					};
+					bullets.push(bullet);
 				}
-				bullets.push(bullet);
+				if (clonetime <= 0) {
+					powered2 = false;
+					clonetime = 10000;
+				}
+				
+				
 				fireTime = 325;
 				var sound = new Howl({
 				urls: ['High pitched jump.mp3']
