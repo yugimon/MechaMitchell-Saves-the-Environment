@@ -89,7 +89,7 @@ Don't steal our code.
 		var ready12 = false;
 		var treelogo = new Image();
 		var ready13 = false;
-		var nuke = new Image();
+		var nukelogo = new Image();
 		var ready14 =  false;
 		
 		function contains( r, m ) {
@@ -166,7 +166,7 @@ Don't steal our code.
 			treelogo.onload = function() {
 				ready13 = true;
 			}
-			nuke.onload = function() {
+			nukelogo.onload = function() {
 				ready14 = true;
 			}
 			MechaMitchell.src = "MechaMitchell.png";
@@ -182,7 +182,7 @@ Don't steal our code.
 			htplogo.src = "How to Play Logo.png";
 			backlogo.src = "Back Logo.png";
 			treelogo.src = "Tree Logo.png";
-			nuke.src = "Nuke Symbol.png";
+			nukelogo.src = "Nuke Symbol.png";
 		}
 		
 		function reset()
@@ -719,10 +719,10 @@ Don't steal our code.
 			}
 			for ( var i=0; i<powerups.length; ++i ) {
 				ctx.fillStyle = powerups[i].c;
-				if ( ready14 === true )
+				if ( ready14 === true && powerups[i].c == "#FF5000" )
 				{
-				ctx.drawImage(nuke, powerups[i].x, powerups[i].y,);
-				//console.log("drawing powerup");
+					ctx.drawImage(nukelogo, powerups[i].x, powerups[i].y);
+					//console.log("drawing powerup");
 				}
 			}
 		}
