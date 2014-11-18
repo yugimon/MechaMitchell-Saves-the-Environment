@@ -89,6 +89,8 @@ Don't steal our code.
 		var ready12 = false;
 		var treelogo = new Image();
 		var ready13 = false;
+		var nuke = new Image();
+		var ready14 =  false;
 		
 		function contains( r, m ) {
 			return ! (r.x>m.x || r.y>m.y || m.x>r.x+r.w || m.y>r.y+r.h );
@@ -164,6 +166,9 @@ Don't steal our code.
 			treelogo.onload = function() {
 				ready13 = true;
 			}
+			nuke.onload = function() {
+				ready14 = true;
+			}
 			MechaMitchell.src = "MechaMitchell.png";
 			playlogo.src = "Metal-Play.png"
 			gameoverlogo.src = "Game-Over.png"
@@ -177,6 +182,7 @@ Don't steal our code.
 			htplogo.src = "How to Play Logo.png";
 			backlogo.src = "Back Logo.png";
 			treelogo.src = "Tree Logo.png";
+			nuke.src = "Nuke Symbol.png";
 		}
 		
 		function reset()
@@ -517,7 +523,7 @@ Don't steal our code.
 						power = {x: 350, y: 510, w: 110, h: 110, c:"#997733"};
 				}
 				powerups.push(power);
-				console.log("spawning powerup");
+				//console.log("spawning powerup");
 				var pt = 10+Math.floor(Math.random()*21);
 				powertime += pt;
 			}
@@ -639,7 +645,7 @@ Don't steal our code.
 				}
 				if ( (((bullets[n].x+4) >= powerups[i].x) && (bullets[n].y >= powerups[i].y && bullets[n].y <= powerups[i].y + 110))&&(powerups[i].c == "#997733") ) {
 					powered2 = true;
-					console.log("powered2 = true");
+					//console.log("powered2 = true");
 					powerups.splice(i,1);
 					return true;
 				}
@@ -696,7 +702,7 @@ Don't steal our code.
 			
 			ctx.fillStyle = "#9F703A";
 			for ( var i=0; i<enetrees.length; ++i ) {
-				ctx.fillStyle = "#9F703A";
+				//ctx.fillStyle = "#9F703A";
 				//ctx.fillRect(enetrees[i].x, enetrees[i].y, enetrees[i].w, enetrees[i].h );
 				if (ready4 === true && enetrees[i].n <= 100)
 				{
@@ -713,8 +719,11 @@ Don't steal our code.
 			}
 			for ( var i=0; i<powerups.length; ++i ) {
 				ctx.fillStyle = powerups[i].c;
-				ctx.fillRect(powerups[i].x, powerups[i].y, powerups[i].w, powerups[i].h );
+				if ( ready14 === true )
+				{
+				ctx.drawImage(nuke, powerups[i].x, powerups[i].y,);
 				//console.log("drawing powerup");
+				}
 			}
 		}
 		
