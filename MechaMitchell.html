@@ -57,6 +57,7 @@ Don't steal our code.
 		
 		var powered1 = false;
 		var powered2 = false;
+		var ayrfam = false;
 		
 		var timetime = 1000;
 		var time = 0;
@@ -410,11 +411,12 @@ Don't steal our code.
 			clonetime -= elapsed;
 			//powertime -= elapsed;
 			
-			if (powered2 == true)
+			if (ayrfam == true)
 			{
 				var sound = new Howl({
 					urls: ['gaben.mp3']
 				}).play();
+				ayrfam = false;
 			}
 			if ( firing && fireTime <= 0 )
 			{
@@ -656,6 +658,7 @@ Don't steal our code.
 				}
 				if ( (((bullets[n].x+4) >= powerups[i].x) && (bullets[n].y >= powerups[i].y && bullets[n].y <= powerups[i].y + 110))&&(powerups[i].c == "#997733") ) {
 					powered2 = true;
+					ayrfam = true;
 					//console.log("powered2 = true");
 					powerups.splice(i,1);
 					return true;
