@@ -188,7 +188,7 @@ Don't steal our code.
 			backlogo.src = "Back Logo.png";
 			treelogo.src = "Tree Logo.png";
 			nukelogo.src = "Nuke Symbol.png";
-			gabenlogo.src = "gaben.png";
+			gabenlogo.src = "gabe.png";
 		}
 		
 		function reset()
@@ -410,7 +410,12 @@ Don't steal our code.
 			clonetime -= elapsed;
 			//powertime -= elapsed;
 			
-			
+			if (powered2 == true)
+			{
+				var sound = new Howl({
+					urls: ['gaben.mp3']
+				}).play();
+			}
 			if ( firing && fireTime <= 0 )
 			{
 				var bullet = 0;
@@ -730,7 +735,7 @@ Don't steal our code.
 					ctx.drawImage(nukelogo, powerups[i].x, powerups[i].y);
 					//console.log("drawing powerup");
 				}
-				if ( ready15 === true && powerups[i].c == "#997733"" )
+				else if ( ready15 === true && powerups[i].c == "#997733")
 				{
 					ctx.drawImage(gabenlogo, powerups[i].x, powerups[i].y);
 					//console.log("drawing powerup");
