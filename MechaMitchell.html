@@ -91,6 +91,8 @@ Don't steal our code.
 		var ready13 = false;
 		var nukelogo = new Image();
 		var ready14 =  false;
+		var gabenlogo = new Image();
+		var ready15 = false;
 		
 		function contains( r, m ) {
 			return ! (r.x>m.x || r.y>m.y || m.x>r.x+r.w || m.y>r.y+r.h );
@@ -169,6 +171,9 @@ Don't steal our code.
 			nukelogo.onload = function() {
 				ready14 = true;
 			}
+			gabenlogo.onload = function() {
+				ready15 = true;
+			}
 			MechaMitchell.src = "MechaMitchell.png";
 			playlogo.src = "Metal-Play.png"
 			gameoverlogo.src = "Game-Over.png"
@@ -183,6 +188,7 @@ Don't steal our code.
 			backlogo.src = "Back Logo.png";
 			treelogo.src = "Tree Logo.png";
 			nukelogo.src = "Nuke Symbol.png";
+			gabenlogo.src = "gaben.png";
 		}
 		
 		function reset()
@@ -722,6 +728,11 @@ Don't steal our code.
 				if ( ready14 === true && powerups[i].c == "#FF5000" )
 				{
 					ctx.drawImage(nukelogo, powerups[i].x, powerups[i].y);
+					//console.log("drawing powerup");
+				}
+				if ( ready15 === true && powerups[i].c == "#997733"" )
+				{
+					ctx.drawImage(gabenlogo, powerups[i].x, powerups[i].y);
 					//console.log("drawing powerup");
 				}
 			}
