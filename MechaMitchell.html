@@ -94,6 +94,8 @@ Don't steal our code.
 		var ready14 =  false;
 		var gabenlogo = new Image();
 		var ready15 = false;
+		var steamlogo = new Image();
+		var ready16 = false;
 		
 		function contains( r, m ) {
 			return ! (r.x>m.x || r.y>m.y || m.x>r.x+r.w || m.y>r.y+r.h );
@@ -175,6 +177,9 @@ Don't steal our code.
 			gabenlogo.onload = function() {
 				ready15 = true;
 			}
+			steamlogo.onload = function() {
+				ready16 = true;
+			}
 			MechaMitchell.src = "MechaMitchell.png";
 			playlogo.src = "Metal-Play.png"
 			gameoverlogo.src = "Game-Over.png"
@@ -190,6 +195,7 @@ Don't steal our code.
 			treelogo.src = "Tree Logo.png";
 			nukelogo.src = "Nuke Symbol.png";
 			gabenlogo.src = "gabe.png";
+			steamlogo.src = "Steam Discount";
 		}
 		
 		function reset()
@@ -700,6 +706,10 @@ Don't steal our code.
 			ctx.fillRect(0,380,800,10);
 			ctx.fillRect(0,500,800,10);
 			
+			if ( powered2 === true && ready16 === true)
+			{
+				ctx.drawImage(steamlogo, player.x, player.y-15);
+			}
 			if (ready === true)
 			{
 				ctx.drawImage(MechaMitchell, player.x, player.y);
