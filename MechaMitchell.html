@@ -706,13 +706,13 @@ Don't steal our code.
 			ctx.fillRect(0,380,800,10);
 			ctx.fillRect(0,500,800,10);
 			
-			if ( powered2 === true && ready16 === true)
-			{
-				ctx.drawImage(steamlogo, player.x, player.y-15);
-			}
 			if (ready === true)
 			{
 				ctx.drawImage(MechaMitchell, player.x, player.y);
+			}
+			if ( powered2 === true && ready16 === true)
+			{
+				ctx.drawImage(steamlogo, player.x, player.y+100);
 			}
 			
 			ctx.fillStyle = "#0000FF";
