@@ -436,7 +436,7 @@ Don't steal our code.
 					bullets.push(bullet);
 					bullet = {
 						x: gun.x,
-						y: 215
+						y: 200
 					};
 					bullets.push(bullet);
 					bullet = {
@@ -706,14 +706,19 @@ Don't steal our code.
 			ctx.fillRect(0,380,800,10);
 			ctx.fillRect(0,500,800,10);
 			
-			if (ready === true)
+			if ( powered2 === true && ready16 === true)
+			{
+				ctx.drawImage(steamlogo, 30, 60);
+				ctx.drawImage(steamlogo, 30, 185);
+				ctx.drawImage(steamlogo, 30, 300);
+				ctx.drawImage(steamlogo, 30, 430);
+				ctx.drawImage(steamlogo, 30, 545);
+			}
+			if (ready === true && powered2 === false)
 			{
 				ctx.drawImage(MechaMitchell, player.x, player.y);
 			}
-			if ( powered2 === true && ready16 === true)
-			{
-				ctx.drawImage(steamlogo, player.x, player.y+100);
-			}
+			
 			
 			ctx.fillStyle = "#0000FF";
 			ctx.font = "16pt Arial, sans-serif";
