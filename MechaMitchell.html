@@ -462,13 +462,13 @@ Don't steal our code.
 					};
 					bullets.push(bullet);
 				}
-				if (clonetime < 0) {
+				if (clonetime <= 0) {
 					powered2 = false;
 					clonetime = 10000;
 				}
 				
 				
-				fireTime = 500;
+				fireTime = 325;
 				var sound = new Howl({
 				urls: ['High pitched jump.mp3']
 				}).play();
