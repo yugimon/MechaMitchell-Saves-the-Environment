@@ -27,6 +27,7 @@ Don't steal our code.
 		var firing = false;
 		var bullets = [];
 		var bspeed = 6; 
+		var level = 1;
 		
 		var curStamp = 0;
 		var lastStamp = 0;
@@ -58,6 +59,7 @@ Don't steal our code.
 		var powered1 = false;
 		var powered2 = false;
 		var ayrfam = false;
+		var sth = false;
 		
 		var timetime = 1000;
 		var time = 0;
@@ -490,9 +492,7 @@ Don't steal our code.
 			
 			var r = 1+Math.floor(Math.random()*5);
 			for ( var i=bullets.length-1; i>=0; i-- ) {
-				if (!shot(i)) {
-					bullets[i].x += bspeed;
-				}
+				bullets[i].x += bspeed;
 				if ( shot(i)) {
 					bullets.splice(i,1);	
 				}
@@ -518,8 +518,116 @@ Don't steal our code.
 			}
 			//powerups spawner
 			
+			levels(level);
 			
-			if ( powertime == time )
+			
+			
+			
+			//entrees spawner
+			
+			if (timetime <= 0){
+				time++;
+				timetime = 1000;
+			}
+
+			lastStamp = curStamp;
+			
+			if ( pause == true){
+				changeState(PAUSE);
+				pause = false;
+			}
+			
+			if ( life === 0 ) {
+				changeState(GAMEOVER);
+				var sound = new Howl({
+				urls: ['nooo.mp3']
+				}).play();
+			}
+		}
+		
+		function levels(l){
+			if (level != 2){
+				sth = false;
+			}
+			if (level == 1){
+				if ( spawntime <= 0 )
+				{
+					var enetree;
+					var r = 1+Math.floor(Math.random()*5);
+					var re = 1+Math.floor(Math.random()*6);
+				
+					if ( r === 1){
+						if(re <= 3)
+							enetree = { x: 900, y: 30, w: 110, h: 110, dx: 2, lives: 2, n: ninety};
+						else if (re <= 5 && re > 3 )
+							enetree = { x: 900, y: 30, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
+						else
+							enetree = { x: 900, y: 30, w: 110, h: 110, dx:1, lives: 4, n: ninety+1000};
+					}
+					else if ( r === 2){
+						if(re <= 3)
+							enetree = {x: 900, y: 150, w: 110, h: 110, dx: 2, lives: 2, n: ninety};
+						else if (re <= 5 && re > 3 )
+							enetree = {x: 900, y: 150, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
+						else
+							enetree = { x: 900, y: 150, w: 110, h: 110, dx:1, lives: 4, n: ninety+1000};
+					}
+					else if ( r === 3){
+						if(re <= 3)
+							enetree = {x: 900, y: 270, w: 110, h: 110, dx: 2, lives: 2, n: ninety};
+						else if (re <= 5 && re > 3 )
+							enetree = {x: 900, y: 270, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
+						else
+							enetree = { x: 900, y: 270, w: 110, h: 110, dx:1, lives: 4, n: ninety+1000};
+					}
+					else if ( r === 4){
+						if(re <= 3)
+							enetree = {x: 900, y: 390, w: 110, h: 110, dx: 2, lives: 2, n: ninety};
+						else if (re <= 5 && re > 3 )
+							enetree = {x: 900, y: 390, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
+						else
+							enetree = { x: 900, y: 390, w: 110, h: 110, dx:1, lives: 4, n: ninety+1000};
+					}
+					else if ( r === 5){
+						if(re <= 3)
+							enetree = {x: 900, y: 510, w: 110, h: 110, dx: 2, lives: 2, n: ninety};
+						else if (re <= 6 && re > 3 )
+							enetree = {x: 900, y: 510, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
+						else
+							enetree = { x: 900, y: 510, w: 110, h: 110, dx:1, lives: 4, n: ninety+1000};
+					}
+					
+					if (ninety >= 99)
+						ninety = 89;
+					ninety++;	
+					enetrees.push(enetree);
+					spawntime = 2500;
+					if (time >= 30 ){
+						spawntime = 2000;
+
+					}
+					if (time >= 60){
+						spawntime = 1500;
+
+					}
+					if ( time>= 90){
+						spawntime = 1000;
+
+					}
+					if ( time >= 120){
+						spawntime = 750;
+
+					}
+					if ( time >= 180){
+						spawntime = 500;
+
+					}
+					if (time >= 240){
+						spawntime = 250;
+
+					}
+				}
+				if ( powertime == time )
 			{
 				var power;
 				var p = 1+Math.floor(Math.random()*2);
@@ -560,109 +668,68 @@ Don't steal our code.
 				var pt = 10+Math.floor(Math.random()*21);
 				powertime += pt;
 			}
-			
-			
-			//entrees spawner
-			if ( spawntime <= 0 )
-			{
-				var enetree;
-				var re = 1+Math.floor(Math.random()*6);
+			}
+			if( level == 2){
+				//tree hydra code
+				if ( sth == false){
+					sth = true;
+					enetree = {x: 900, y: 30, w: 110, h: 110, dx: 2, lives: 20, n: ninety+100000};
+					enetrees.push(enetree);
+					enetree = {x: 900, y: 150, w: 110, h: 110, dx: 3, lives: 20, n: ninety+100000};
+					enetrees.push(enetree);
+					enetree = {x: 900, y: 270, w: 110, h: 110, dx: 5, lives: 20, n: ninety+100000};
+					enetrees.push(enetree);
+					enetree = {x: 900, y: 390, w: 110, h: 110, dx: 4, lives: 20, n: ninety+100000};
+					enetrees.push(enetree);
+					enetree = {x: 900, y: 510, w: 110, h: 110, dx: 2, lives: 20, n: ninety+100000};
+					enetrees.push(enetree);
+				}
+				for ( var i=0; i<enetrees.length; i++ ) {
+					if(enetrees[i].n >= 100000 && enetrees[i].x <= 600){
+						enetrees[i].dx = 0;
+					}
+				}
+				if ( spawntime <= 0 )
+				{
+					var enetree;
+					var r = 1+Math.floor(Math.random()*5);
 				
-				if ( r === 1){
-					if(re <= 3)
-						enetree = { x: 900, y: 30, w: 110, h: 110, dx: 2, lives: 2, n: ninety};
-					else if (re <= 5 && re > 3 )
-						enetree = { x: 900, y: 30, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
-					else
-						enetree = { x: 900, y: 30, w: 110, h: 110, dx:1, lives: 4, n: ninety+1000};
-				}
-				else if ( r === 2){
-					if(re <= 3)
-						enetree = {x: 900, y: 150, w: 110, h: 110, dx: 2, lives: 2, n: ninety};
-					else if (re <= 5 && re > 3 )
-						enetree = {x: 900, y: 150, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
-					else
-						enetree = { x: 900, y: 150, w: 110, h: 110, dx:1, lives: 4, n: ninety+1000};
-				}
-				else if ( r === 3){
-					if(re <= 3)
-						enetree = {x: 900, y: 270, w: 110, h: 110, dx: 2, lives: 2, n: ninety};
-					else if (re <= 5 && re > 3 )
-						enetree = {x: 900, y: 270, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
-					else
-						enetree = { x: 900, y: 270, w: 110, h: 110, dx:1, lives: 4, n: ninety+1000};
-				}
-				else if ( r === 4){
-					if(re <= 3)
-						enetree = {x: 900, y: 390, w: 110, h: 110, dx: 2, lives: 2, n: ninety};
-					else if (re <= 5 && re > 3 )
-						enetree = {x: 900, y: 390, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
-					else
-						enetree = { x: 900, y: 390, w: 110, h: 110, dx:1, lives: 4, n: ninety+1000};
-				}
-				else if ( r === 5){
-					if(re <= 3)
-						enetree = {x: 900, y: 510, w: 110, h: 110, dx: 2, lives: 2, n: ninety};
-					else if (re <= 6 && re > 3 )
-						enetree = {x: 900, y: 510, w: 110, h: 110, dx: 3, lives: 1, n: ninety+100};
-					else
-						enetree = { x: 900, y: 510, w: 110, h: 110, dx:1, lives: 4, n: ninety+1000};
-				}
-					
-				if (ninety >= 99)
-					ninety = 89;
-				ninety++;	
-				enetrees.push(enetree);
-				spawntime = 2500;
-				if (time >= 30 ){
-					spawntime = 2000;
-
-				}
-				if (time >= 60){
-					spawntime = 1500;
-
-				}
-				if ( time>= 90){
+					for ( var i=enetrees.length-1; i>0; i-- ) {
+						if( enetrees[i].y == 30 && enetrees[i].n >= 100000){
+							if ( r === 1){
+									enetree = { x: 900, y: 30, w: 110, h: 110, dx: 2, lives: 1, n: ninety-90};
+							}
+						}
+						if( enetrees[i].y == 150 && enetrees[i].n >= 100000){
+							if ( r === 2){
+									enetree = {x: 900, y: 150, w: 110, h: 110, dx: 2, lives: 1, n: ninety-90};
+							}
+						}
+						if( enetrees[i].y == 270 && enetrees[i].n >= 100000){
+							if ( r === 3){
+									enetree = {x: 900, y: 270, w: 110, h: 110, dx: 2, lives: 1, n: ninety-90};
+							}
+						}
+						if( enetrees[i].y == 390 && enetrees[i].n >= 100000){
+							if ( r === 4){
+									enetree = {x: 900, y: 390, w: 110, h: 110, dx: 2, lives: 1, n: ninety-90};
+							}
+						}
+						if( enetrees[i].y == 510 && enetrees[i].n >= 100000){
+							if ( r === 5){
+									enetree = {x: 900, y: 510, w: 110, h: 110, dx: 2, lives: 1, n: ninety-90};
+							}
+						}
+					}
+					if (ninety >= 99)
+						ninety = 89;
+					ninety++;	
+					enetrees.push(enetree);
 					spawntime = 1000;
 
 				}
-				if ( time >= 120){
-					spawntime = 750;
-
-				}
-				if ( time >= 180){
-					spawntime = 500;
-
-				}
-				if (time >= 240){
-					spawntime = 250;
-
-				}
-			}
-			if (timetime <= 0){
-				time++;
-				timetime = 1000;
-			}
-
-			lastStamp = curStamp;
-			
-			if ( pause == true){
-				changeState(PAUSE);
-				pause = false;
 			}
 			
-			if ( life === 0 ) {
-				changeState(GAMEOVER);
-				var sound = new Howl({
-				urls: ['nooo.mp3']
-				}).play();
-			}
-		}
-		
-		function levels(l){
-			if (level == 1){
-				
-			}
 		}
 		
 		function shot(n){
@@ -738,8 +805,14 @@ Don't steal our code.
 			ctx.textBaseline = "top";
 			
 			ctx.fillText("Lives: "+life, 50, 0);
-			ctx.fillText("Kills: "+kills, 300, 0); 
-			ctx.fillText("Time: "+time, 550, 0);
+			ctx.fillText("Kills: "+kills, 260, 0); 
+			ctx.fillText("Time: "+time, 450, 0);
+			ctx.fillText("Level "+level, 700, 0);
+			for ( var i=0; i<enetrees.length; i++ ) {
+				if (enetrees[i].n >= 100000){
+					ctx.fillText("Health: "+enetrees[i].lives, enetrees[i].x+100, enetrees[i].y+30);
+				}
+			}
 			
 			ctx.fillStyle = "#00FF00";
 			for ( var i=0; i<bullets.length; ++i ) {
@@ -779,7 +852,7 @@ Don't steal our code.
 		}
 		
 		
-		var KEY_UP = 38, KEY_DOWN=40, KEY_SPACE=32, KEY_ENTER=13, KEY_PAUSE=80, KEY_S=83,KEY_U=85, KEY_K=75;
+		var KEY_UP = 38, KEY_DOWN=40, KEY_SPACE=32, KEY_ENTER=13, KEY_PAUSE=80, KEY_S=83,KEY_U=85, KEY_K=75, KEY_F1=113, KEY_F2=112 ;
 		
 		function handleKeyDown(evt) {
 			if ( evt.keyCode == KEY_SPACE ) {
@@ -827,7 +900,14 @@ Don't steal our code.
 				
 				}
 			}
-			
+			if ( evt.keyCode == KEY_F1){
+				enetrees.splice(0,enetrees.length);
+				level++;
+			}
+			if ( evt.keyCode == KEY_F2){
+				enetrees.splice(0,enetrees.length);
+				level--;
+			}
 			if( 38 <= evt.keyCode && evt.keyCode <= 40)
 				evt.preventDefault();
 			if( 13 == evt.keyCode )
@@ -837,6 +917,10 @@ Don't steal our code.
 			if( 83 == evt.keyCode )
 				evt.preventDefault();
 			if( 75 == evt.keyCode )
+				evt.preventDefault();
+			if( 112 == evt.keyCode )
+				evt.preventDefault();
+			if( 113 == evt.keyCode )
 				evt.preventDefault();
 		}
 		
