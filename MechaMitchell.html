@@ -517,8 +517,7 @@ Don't steal our code.
 				}
 			}
 			//powerups spawner
-			if (kills >= 100)
-				
+			
 			levels(level);
 			
 			
@@ -693,13 +692,9 @@ Don't steal our code.
 				if ( spawntime <= 0 )
 				{
 					var enetree;
-					var hh = 0;
 					var r = 1+Math.floor(Math.random()*5);
 				
 					for ( var i=enetrees.length-1; i>0; i-- ) {
-						if( enetrees[i] && enetrees[i].n >= 100000) {
-							hh += 1;
-						}
 						if(enetrees[i] &&  enetrees[i].y == 30 && enetrees[i].n >= 100000){
 							if ( r === 1){
 									enetree = { x: 900, y: 30, w: 110, h: 110, dx: 2, lives: 1, n: ninety-90};
@@ -730,19 +725,7 @@ Don't steal our code.
 						ninety = 89;
 					ninety++;	
 					enetrees.push(enetree);
-					spawntime = 1200; 
-					if (hh == 4) {
-						spawntime = 1000;
-					}
-					else if( hh == 3) {
-						spawntime = 800;
-					}
-					else if( hh == 2){
-						spawntime = 600;
-					}
-					else if( hh == 1) {
-						spawntime = 400;
-					}
+					spawntime = 1000;
 
 				}
 			}
