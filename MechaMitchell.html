@@ -501,17 +501,17 @@ Don't steal our code.
 				}
 			}
 			for ( var i=enetrees.length-1; i>=0; i--)  {
-				if ( enetrees[i].lives >= 0){
+				if (enetrees[i] && enetrees[i].lives >= 0){
 					enetrees[i].x -= enetrees[i].dx;
 				}
-				if ( enetrees[i].lives <= 0){
+				if (enetrees[i] &&  enetrees[i].lives <= 0){
 					enetrees.splice(i,1);
 					kills++;
 					var sound = new Howl({
 					urls: ['Self Checkout.mp3']
 					}).play();
 				}
-				else if ( enetrees[i].x <= 170){
+				else if (enetrees[i] && enetrees[i].x <= 170){
 					enetrees.splice(i,1);
 					life -= 1;
 				}
@@ -684,8 +684,8 @@ Don't steal our code.
 					enetree = {x: 900, y: 510, w: 110, h: 110, dx: 2, lives: 20, n: ninety+100000};
 					enetrees.push(enetree);
 				}
-				for ( var i=0; i<enetrees.length; i++ ) {
-					if(enetrees[i].n >= 100000 && enetrees[i].x <= 600){
+				for ( var i=enetrees.length-1; i>=0; i-- ) {
+					if(enetrees[i] && enetrees[i].n >= 100000 && enetrees[i].x <= 600){
 						enetrees[i].dx = 0;
 					}
 				}
@@ -695,27 +695,27 @@ Don't steal our code.
 					var r = 1+Math.floor(Math.random()*5);
 				
 					for ( var i=enetrees.length-1; i>0; i-- ) {
-						if( enetrees[i].y == 30 && enetrees[i].n >= 100000){
+						if(enetrees[i] &&  enetrees[i].y == 30 && enetrees[i].n >= 100000){
 							if ( r === 1){
 									enetree = { x: 900, y: 30, w: 110, h: 110, dx: 2, lives: 1, n: ninety-90};
 							}
 						}
-						if( enetrees[i].y == 150 && enetrees[i].n >= 100000){
+						if(enetrees[i] &&  enetrees[i].y == 150 && enetrees[i].n >= 100000){
 							if ( r === 2){
 									enetree = {x: 900, y: 150, w: 110, h: 110, dx: 2, lives: 1, n: ninety-90};
 							}
 						}
-						if( enetrees[i].y == 270 && enetrees[i].n >= 100000){
+						if(enetrees[i] &&  enetrees[i].y == 270 && enetrees[i].n >= 100000){
 							if ( r === 3){
 									enetree = {x: 900, y: 270, w: 110, h: 110, dx: 2, lives: 1, n: ninety-90};
 							}
 						}
-						if( enetrees[i].y == 390 && enetrees[i].n >= 100000){
+						if(enetrees[i] &&  enetrees[i].y == 390 && enetrees[i].n >= 100000){
 							if ( r === 4){
 									enetree = {x: 900, y: 390, w: 110, h: 110, dx: 2, lives: 1, n: ninety-90};
 							}
 						}
-						if( enetrees[i].y == 510 && enetrees[i].n >= 100000){
+						if(enetrees[i] &&  enetrees[i].y == 510 && enetrees[i].n >= 100000){
 							if ( r === 5){
 									enetree = {x: 900, y: 510, w: 110, h: 110, dx: 2, lives: 1, n: ninety-90};
 							}
@@ -733,13 +733,13 @@ Don't steal our code.
 		}
 		
 		function shot(n){
-			for ( var i=0; i<enetrees.length; i++ ) {
-				if ( ((bullets[n].x+4) >= enetrees[i].x) && (bullets[n].y >= enetrees[i].y && bullets[n].y <= enetrees[i].y + 110) ) {
+			for ( var i=enetrees.length-1; i>=0; i-- ) {
+				if ( enetrees[i] && bullets[n]&&((bullets[n].x+4) >= enetrees[i].x) && (bullets[n].y >= enetrees[i].y && bullets[n].y <= enetrees[i].y + 110) ) {
 						enetrees[i].lives -= 1;
 						return true;
 				}
 			}
-			for ( var i=0; i<powerups.length; i++ ) {
+			for ( var i=powerups.length-1; i>=0; i-- ) {
 				if ( (((bullets[n].x+4) >= powerups[i].x) && (bullets[n].y >= powerups[i].y && bullets[n].y <= powerups[i].y + 110))&&(powerups[i].c == "#FF5000") ) {
 						powered1 = true;
 						powerups.splice(i,1);
@@ -809,13 +809,13 @@ Don't steal our code.
 			ctx.fillText("Time: "+time, 450, 0);
 			ctx.fillText("Level "+level, 700, 0);
 			for ( var i=0; i<enetrees.length; i++ ) {
-				if (enetrees[i].n >= 100000){
+				if (enetrees[i] && enetrees[i].n >= 100000){
 					ctx.fillText("Health: "+enetrees[i].lives, enetrees[i].x+100, enetrees[i].y+30);
 				}
 			}
 			
 			ctx.fillStyle = "#00FF00";
-			for ( var i=0; i<bullets.length; ++i ) {
+			for ( var i=bullets.length-1;i>=0 ; i-- ) {
 				ctx.fillRect(bullets[i].x, bullets[i].y, 50, 4);
 			}
 			
@@ -823,15 +823,15 @@ Don't steal our code.
 			for ( var i=0; i<enetrees.length; ++i ) {
 				//ctx.fillStyle = "#9F703A";
 				//ctx.fillRect(enetrees[i].x, enetrees[i].y, enetrees[i].w, enetrees[i].h );
-				if (ready4 === true && enetrees[i].n <= 100)
+				if (enetrees[i] && ready4 === true && enetrees[i].n <= 100)
 				{
 					ctx.drawImage(tree1, enetrees[i].x, enetrees[i].y);
 				}
-				else if (ready5 === true && enetrees[i].n > 100 && enetrees[i].n < 1000)
+				else if (enetrees[i] && ready5 === true && enetrees[i].n > 100 && enetrees[i].n < 1000)
 				{
 					ctx.drawImage(tree2, enetrees[i].x, enetrees[i].y);
 				}
-				else if (ready7 === true && enetrees[i].n > 1000)
+				else if (enetrees[i] && ready7 === true && enetrees[i].n > 1000)
 				{
 					ctx.drawImage(tree3, enetrees[i].x, enetrees[i].y);
 				}
