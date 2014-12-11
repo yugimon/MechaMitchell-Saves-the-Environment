@@ -102,6 +102,8 @@ Don't steal our code.
 		var ready17 = false;
 		var steamsale3 = new Image();
 		var ready18 = false;
+		var hydrapicture = new Image();
+		var ready19 = false;
 		
 		function contains( r, m ) {
 			return ! (r.x>m.x || r.y>m.y || m.x>r.x+r.w || m.y>r.y+r.h );
@@ -192,6 +194,9 @@ Don't steal our code.
 			steamsale3.onLoad = function() {
 				ready18 = true;
 			}
+			hydrapicture.onLoad = function() {
+				ready18 = true;
+			}
 			
 			MechaMitchell.src = "MechaMitchell.png";
 			playlogo.src = "Metal-Play.png"
@@ -211,6 +216,7 @@ Don't steal our code.
 			steamlogo.src = "Steam Discount.png";
 			steamsale2.src = "steam-sale2.png";
 			steamsale3.src = "steam-sale3.png";
+			hydrapicture.src = "a.baa-Mad-Tree-Face.png"
 		}
 		
 		function reset()
