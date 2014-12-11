@@ -855,7 +855,11 @@ Don't steal our code.
 			for ( var i=0; i<enetrees.length; ++i ) {
 				//ctx.fillStyle = "#9F703A";
 				//ctx.fillRect(enetrees[i].x, enetrees[i].y, enetrees[i].w, enetrees[i].h );
-				if (enetrees[i] && ready4 === true && enetrees[i].n <= 100)
+				if (enetrees[i] && ready === true && enetrees[i].n >= 0 )
+				{
+				
+				}
+				else if (enetrees[i] && ready4 === true && enetrees[i].n >= 100&& enetrees[i].n < 100)
 				{
 					ctx.drawImage(tree1, enetrees[i].x, enetrees[i].y);
 				}
@@ -863,9 +867,13 @@ Don't steal our code.
 				{
 					ctx.drawImage(tree2, enetrees[i].x, enetrees[i].y);
 				}
-				else if (enetrees[i] && ready7 === true && enetrees[i].n > 1000)
+				else if (enetrees[i] && ready7 === true && enetrees[i].n > 1000 && enetrees[i].n < 10000)
 				{
 					ctx.drawImage(tree3, enetrees[i].x, enetrees[i].y);
+				}
+				else if (enetrees[i] && ready === true && enetrees[i].n > 10000)
+				{
+				
 				}
 			}
 			for ( var i=0; i<powerups.length; ++i ) {
