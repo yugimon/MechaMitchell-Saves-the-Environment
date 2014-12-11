@@ -162,6 +162,12 @@ Don't steal our code.
 			tree3.onload = function() {
 				ready7= true;
 			}
+			hydrapicture.onLoad = function() {
+				ready19 = true;
+			}
+			pinecone.onLoad = function() {
+				ready20 = true;
+			}
 			menubackground.onload = function() {
 				ready8= true;
 			}
@@ -195,12 +201,7 @@ Don't steal our code.
 			steamsale3.onLoad = function() {
 				ready18 = true;
 			}
-			hydrapicture.onLoad = function() {
-				ready19 = true;
-			}
-			pinecone.onLoad = function() {
-				ready20 = true;
-			}
+			
 			MechaMitchell.src = "MechaMitchell.png";
 			playlogo.src = "Metal-Play.png"
 			gameoverlogo.src = "Game-Over.png"
@@ -859,8 +860,9 @@ Don't steal our code.
 			for ( var i=0; i<enetrees.length; ++i ) {
 				//ctx.fillStyle = "#9F703A";
 				//ctx.fillRect(enetrees[i].x, enetrees[i].y, enetrees[i].w, enetrees[i].h );
-				console.log(enetrees[i].n);
-				if (enetrees[i] && ready20 === true && enetrees[i].n >= 0 && enetrees[i].n < 10)
+				if (enetrees[i])
+					console.log(enetrees[i].n);
+				if (enetrees[i] && /*ready20 === true &&*/ enetrees[i].n >= 0 && enetrees[i].n < 10)
 				{
 					ctx.drawImage(pinecone, enetrees[i].x, enetrees[i].y);
 				}
@@ -876,7 +878,7 @@ Don't steal our code.
 				{
 					ctx.drawImage(tree3, enetrees[i].x, enetrees[i].y);
 				}
-				else if (enetrees[i] && ready19 === true && enetrees[i].n > 100000)
+				else if (enetrees[i] &&/* ready19 === true  &&*/ enetrees[i].n > 100000)
 				{
 					ctx.drawImage(hydrapicture, enetrees[i].x, enetrees[i].y);
 				}
