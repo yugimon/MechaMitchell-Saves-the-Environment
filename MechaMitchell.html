@@ -104,6 +104,7 @@ Don't steal our code.
 		var ready18 = false;
 		var hydrapicture = new Image();
 		var ready19 = false;
+		var pinecone = new Image();
 		var ready20 = false;
 		function contains( r, m ) {
 			return ! (r.x>m.x || r.y>m.y || m.x>r.x+r.w || m.y>r.y+r.h );
@@ -195,9 +196,11 @@ Don't steal our code.
 				ready18 = true;
 			}
 			hydrapicture.onLoad = function() {
-				ready18 = true;
+				ready19 = true;
 			}
-			
+			pinecone.onLoad = function() {
+				ready20 = true;
+			}
 			MechaMitchell.src = "MechaMitchell.png";
 			playlogo.src = "Metal-Play.png"
 			gameoverlogo.src = "Game-Over.png"
@@ -216,7 +219,8 @@ Don't steal our code.
 			steamlogo.src = "Steam Discount.png";
 			steamsale2.src = "steam-sale2.png";
 			steamsale3.src = "steam-sale3.png";
-			hydrapicture.src = "a.baa-Mad-Tree-Face.png"
+			hydrapicture.src = "a.baa-Mad-Tree-Face.png";
+			pinecone.src = "pine cone missle.png";
 		}
 		
 		function reset()
@@ -857,7 +861,7 @@ Don't steal our code.
 				//ctx.fillRect(enetrees[i].x, enetrees[i].y, enetrees[i].w, enetrees[i].h );
 				if (enetrees[i] && ready20 === true && enetrees[i].n >= 0 )
 				{
-					
+					ctx.drawImage(pinecone, enetrees[i].x, enetrees[i].y);
 				}
 				else if (enetrees[i] && ready4 === true && enetrees[i].n >= 100&& enetrees[i].n < 100)
 				{
