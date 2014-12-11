@@ -104,7 +104,7 @@ Don't steal our code.
 		var ready18 = false;
 		var hydrapicture = new Image();
 		var ready19 = false;
-		
+		var ready20 = false;
 		function contains( r, m ) {
 			return ! (r.x>m.x || r.y>m.y || m.x>r.x+r.w || m.y>r.y+r.h );
 		}
@@ -855,9 +855,9 @@ Don't steal our code.
 			for ( var i=0; i<enetrees.length; ++i ) {
 				//ctx.fillStyle = "#9F703A";
 				//ctx.fillRect(enetrees[i].x, enetrees[i].y, enetrees[i].w, enetrees[i].h );
-				if (enetrees[i] && ready === true && enetrees[i].n >= 0 )
+				if (enetrees[i] && ready20 === true && enetrees[i].n >= 0 )
 				{
-				
+					
 				}
 				else if (enetrees[i] && ready4 === true && enetrees[i].n >= 100&& enetrees[i].n < 100)
 				{
@@ -871,9 +871,9 @@ Don't steal our code.
 				{
 					ctx.drawImage(tree3, enetrees[i].x, enetrees[i].y);
 				}
-				else if (enetrees[i] && ready === true && enetrees[i].n > 10000)
+				else if (enetrees[i] && ready19 === true && enetrees[i].n > 10000)
 				{
-				
+					ctx.drawImage(hydrapicture, enetrees[i].x, enetrees[i].y);
 				}
 			}
 			for ( var i=0; i<powerups.length; ++i ) {
