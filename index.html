@@ -432,7 +432,9 @@ Don't steal our code.
 		}
 		
 		function updateWin() {
-			
+			var sound = new Howl({
+					urls: ['Congratulations.mp3']
+				}).play();
 			var curTime = performance.now();
 			var elapsed = curTime - lastTime;
 			waitTime -= elapsed;
