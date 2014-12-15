@@ -239,6 +239,7 @@ Don't steal our code.
 		{
 			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 			life = 5;
+			level = 1;
 			kills = 0;
 			time = 0;
 			powertime = pt;
@@ -285,6 +286,7 @@ Don't steal our code.
 		}
 		
 		function updateMenu() {
+			
 			if ( mouse.clicked && contains(playButton, mouse) === true ) {
 				changeState(PLAY);
 			}
@@ -296,6 +298,7 @@ Don't steal our code.
 			}
 			mouse.clicked = false;
 			enter = false;
+			reset();
 		}
 		
 		function drawMenu(ctx) {
@@ -444,10 +447,10 @@ Don't steal our code.
 		}
 				
 		function drawWin(ctx) {
-			if (ready22 === true)
-			{
-				ctx.drawImage(ending, 300, 270);
-			}
+			//if (ready22 === true)
+			//{
+				ctx.drawImage(ending, 0, 270);
+			//}
 		}
 		
 		function updatePlay() {
@@ -712,6 +715,9 @@ Don't steal our code.
 				powerups.push(power);
 				var pt = 10+Math.floor(Math.random()*21);
 				powertime += pt;
+			}
+			if (kills >= 100){
+				level = 2;
 			}
 			}
 			if( level == 2){
