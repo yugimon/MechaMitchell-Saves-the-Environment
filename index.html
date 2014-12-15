@@ -40,7 +40,7 @@ Don't steal our code.
 		
 		var gun = {x: 80, y: 315, w: 110, h: 110};
 
-		var MENU = 0, PLAY = 1,PAUSE = 2, GAMEOVER = 3, HTP = 4, INFO = 5, ET = 6;
+		var MENU = 0, PLAY = 1,PAUSE = 2, GAMEOVER = 3, HTP = 4, INFO = 5, ET = 6, WIN = 7;
 		var state = MENU;
 		var timerID = -1;
 		var mouse = { x: 0, y: 20, clicked: false };
@@ -276,6 +276,11 @@ Don't steal our code.
 				lastTime = performance.now();
 			timerID = setInterval(function() { updateGameOver(); drawGameOver(ctx); }, 1000/60);
 			}	
+			else if ( newState === WIN ) {
+				waitTime = 3000;
+				lastTime = performance.now();
+				timerID = setInterval(function() { updateWin(); drawGameWin(ctx); }, 1000/60);
+			}	
 			state = newState;
 		}
 		
@@ -424,6 +429,23 @@ Don't steal our code.
 				pause = false;
 			}
 			
+		}
+		
+		function updateWin() {
+			
+			var curTime = performance.now();
+			var elapsed = curTime - lastTime;
+			waitTime -= elapsed;
+			lastTime = curTime;
+			if ( waitTime <= 0 )
+			changeState(MENU);
+		}
+				
+		function drawWin(ctx) {
+			if (ready === true)
+			{
+				ctx.drawImage(, 300, 270);
+			}
 		}
 		
 		function updatePlay() {
@@ -775,9 +797,12 @@ Don't steal our code.
 					
 
 				}
+				if (
 			}
 			
 		}
+		
+		
 		
 		function shot(n){
 			for ( var i=enetrees.length-1; i>=0; i-- ) {
