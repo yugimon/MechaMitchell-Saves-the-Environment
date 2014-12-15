@@ -432,9 +432,9 @@ Don't steal our code.
 		}
 		
 		function updateWin() {
-			var sound = new Howl({
+			/*var sound = new Howl({
 					urls: ['Congratulations.mp3']
-				}).play();
+				}).play();*/
 			var curTime = performance.now();
 			var elapsed = curTime - lastTime;
 			waitTime -= elapsed;
@@ -446,7 +446,7 @@ Don't steal our code.
 		function drawWin(ctx) {
 			if (ready22 === true)
 			{
-				ctx.drawImage(ending, 300, 270);
+				ctx.drawImage(ending, 0, 270);
 			}
 		}
 		
