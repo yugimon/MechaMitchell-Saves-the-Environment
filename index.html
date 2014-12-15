@@ -739,7 +739,7 @@ Don't steal our code.
 					
 					var enetree;
 					var r = 1+Math.floor(Math.random()*5);
-					var hh = 1;
+					var hh = 0;
 					spawntime = 1200; 
 					
 					if (hh == 4) {
@@ -760,7 +760,7 @@ Don't steal our code.
 
 					}
 					
-					for ( var i=enetrees.length; i>0; i-- ) {
+					for ( var i=enetrees.length; i>=0; i-- ) {
 						if( enetrees[i] && enetrees[i].n >= 100000) {
 							hh += 1;
 						}
@@ -799,7 +799,7 @@ Don't steal our code.
 					
 
 				}
-				if ( hh <= 1) {
+				if ( hh <= 0) {
 					changeState(WIN);
 				}
 					
